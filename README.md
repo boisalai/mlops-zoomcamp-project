@@ -6,8 +6,7 @@
 
 ## Setup
 
-Follow the instructions in this [video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
-to prepare the environment or follow the steps 1 and 2 below.
+Follow the steps 1 to 7 below.
 
 ### Step 1: Create an AWS Account
 
@@ -43,8 +42,14 @@ Click on **Create new key pair** with:
 ![MLOps](images/s04.png)
 
 Click on **Create key pair** button, than move the downloaded `razer.pem`  file to the `~/.ssh` folder on your local machine.
+Than change the permissions to protect the file against the accidental overwriting, removing, renaming or moving files.
 
-Increase **Configure storage** to 30 Gb.
+```bash
+$ mv ~/downloads/razer.pem ~/.ssh
+$ chmod 400 ~/.ssh/razer.pem 
+```
+
+Increase **Configure storage** to 30 GiB.
 
 ![MLOps](images/s05.png)
 
@@ -54,16 +59,15 @@ You should see something like this.
 
 ![MLOps](images/s06.png)
 
-Take note of the **Public IPv4 address** (mine is `3.99.213.229`).
+Take note of the **Public IPv4 address** (mine is `3.99.132.220`).
 
 ### Step 3: Connect local machine to the EC2 instance
 
 Connect to this instance with the following commands.
-Don't forget to replace the public IP with your own (mine is `3.99.213.229`).
+Don't forget to replace the public IP with your own (mine is `3.99.132.220`).
 
 ```bash
-$ chmod 400 ~/.ssh/razer.pem 
-$ ssh -i ~/.ssh/razer.pem ubuntu@99.79.47.77
+$ ssh -i ~/.ssh/razer.pem ubuntu@3.99.132.220
 ```
 
 You should see this.
@@ -82,7 +86,7 @@ You don't need to run the previous command every time. Just create a config file
 
 ```bash
 Host mlops-project
-    HostName 3.99.213.229
+    HostName 3.99.132.220
     User ubuntu
     IdentityFile ~/.ssh/razer.pem
     StrictHostKeyChecking no
@@ -92,9 +96,7 @@ Now, we can connect to our instance with this command.
 
 ```bash
 # To connect to our instance. 
-$ ssh mlops-zoomcamp
-# To exit SSH connection.
-$ logout
+$ ssh mlops-project
 ```
 
 Note that every time we stop and restart the instance, we will have to change the public IP address.
@@ -104,14 +106,13 @@ Note that every time we stop and restart the instance, we will have to change th
 Run the folowing commands on your instance to install MiniConda, Docker and Docker Compose.
 
 ```bash
-$ sudo apt update
-$ sudo apt install make
+$ sudo apt update && sudo apt install make
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamp-project
 $ make init
 ```
 
-Log out (with `logout` command) and log back (with `ssh mlops-zoomcamp` command) in so that your group membership is re-evaluated.
+Log out (with `logout` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
 
 Run the following command on your instance and docker should work fine.
 
