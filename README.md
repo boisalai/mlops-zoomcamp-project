@@ -138,7 +138,7 @@ We should see this.
 On the remote instance, run the following commands.
 
 ```bash
-$ cd notebooks
+$ cd ~/mlops-zoomcamp-project/notebooks
 $ jupyter notebook
 ```
 
