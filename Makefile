@@ -6,10 +6,6 @@ install:
 	conda create -n mlops-project python==3.9.12
 	conda activate mlops-project
 
-	conda install -c conda-forge notebook
-conda install -c conda-forge nb_conda_kernels
-
-
 	echo "Install dependencies"
 	pip install -r requirements.txt
 

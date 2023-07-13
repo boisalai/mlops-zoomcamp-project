@@ -113,6 +113,13 @@ $ make init
 
 Log out (with `logout` command) and log back (with `ssh mlops-zoomcamp` command) in so that your group membership is re-evaluated.
 
+Run the following commands on your instance to create a conda environment and install the other required packages into it.
+
+```bash
+$ cd ~/mlops-zoomcamp-project
+$ make install
+```
+
 Run the following command on your instance and docker should work fine.
 
 ```bash
