@@ -104,7 +104,9 @@ Note that every time we stop and restart the instance, we will have to change th
 Run the folowing commands on your instance.
 
 ```bash
+$ sudo apt install make
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+$ cd mlops-zoomcamp-project
 $ make init
 ```
 
