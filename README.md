@@ -111,6 +111,43 @@ $ cd mlops-zoomcamp-project
 $ make init
 ```
 
+Log out (with `logout` command) and log back (with `ssh mlops-zoomcamp` command) in so that your group membership is re-evaluated.
+
+Run the following command on your instance and docker should work fine.
+
+```bash
+$ docker run hello-world
+``` 
+
+### Step 5: Connect Visual Studio Code to your instance
+
+Now, we want access to this remote computer from our Visual Studio Code (VS Code).
+
+Open VS Code from your local machine. 
+In VS Code, find and install the **Remote - SSH** extension. 
+Then go to the **Command Palette** (`Shift+Cmd+P`), select **Remote-SSH: Connect to Host…**​, 
+select the configured SSH host `mlops-zoomcamp` and 
+open `mlops-zoomcamp-project` folder.
+
+We should see this.
+
+![s08](images/s08.png)
+
+### Step 6: Use Jupyter Notebook from remote machine
+
+On the remote instance, run the following commands.
+
+```bash
+$ cd notebooks
+$ jupyter notebook
+```
+
+In VS Code, open terminal, select **PORTS**, open the port `8888`.
+
+![MLOps](images/s11.png)
+
+Now, if we go to http://localhost:8888/tree, we should see that jupyter notebook is alive.
+
 # Je suis rendu ici...
 
 
