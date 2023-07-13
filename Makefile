@@ -3,11 +3,12 @@ hello:
 
 install:
 	echo "Create a conda environment and activate it"
+	export CONDA_ALWAYS_YES="true"
 	conda create -n mlops-project python==3.9.12
 	conda activate mlops-project
 
 	echo "Install dependencies"
-	pip install -q -r requirements.txt
+	pip install -r requirements.txt
 
 init:
 	echo "Install Miniconda"
