@@ -19,16 +19,18 @@ Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
 
 From your **AWS Console**, select **EC2** and then click on **Launch instance**.
 
-Create a new instance with:
-
-* **Name**: mlops-zoomcamp
-* **Amazon Machine Image (AMI)**: Ubuntu Server 22.04 LTS (HVM), SSD Volumn Type
-* **Architecture**: 64-bit (x86)
-* **Instance type**: t2.xlarge
+Create a new instance with the name **mlops-zoomcamp**.
 
 ![MLOps](images/s01.png)
 
+Select:
+
+* **Amazon Machine Image (AMI)**: Ubuntu Server 22.04 LTS (HVM), SSD Volumn Type
+* **Architecture**: 64-bit (x86)
+
 ![MLOps](images/s02.png)
+
+Choose **Instance type**: t2.xlarge.
 
 ![MLOps](images/s03.png)
 
