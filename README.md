@@ -59,12 +59,38 @@ Take note of the **Public IPv4 address** (mine is `99.79.47.77`).
 ### Step 3: Connect local machine to the EC2 instance
 
 Connect to this instance with the following commands.
-Don't forget to replace the public IP with your own (mine is `3.99.223.16`).
+Don't forget to replace the public IP with your own (mine is `99.79.47.77`).
 
 ```bash
 $ chmod 400 ~/.ssh/razer.pem 
-$ ssh -i ~/.ssh/razer.pem ubuntu@3.99.223.16 
+$ ssh -i ~/.ssh/razer.pem ubuntu@99.79.47.77
 ```
+
+You should see this.
+
+![MLOps](images/s07.png)
+
+We are now connected to the remote service.
+
+Enter `logout` to close the connection.
+
+You don't need to run the previous command every time. Just create a config file `~/.ssh/config` like this.
+
+```bash
+Host mlops-zoomcamp
+    HostName 99.79.47.77
+    User ubuntu
+    IdentityFile ~/.ssh/razer.pem
+    StrictHostKeyChecking no
+```
+
+Now, we can connect to our instance with this command.
+
+```bash
+ssh mlops-zoomcamp
+```
+
+Note that every time we restart the instance, we will have to change the public IP address.
 
 
 # Je suis rendu ici...
