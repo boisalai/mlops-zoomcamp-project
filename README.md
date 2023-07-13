@@ -6,8 +6,8 @@
 
 ## Setup
 
-See this [video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
-to prepare the environment or foloow the step below.
+follow the instructions in this [video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
+to prepare the environment or follow the steps 1 and 2 below.
 
 ### Step 1: Create an AWS Account
 
@@ -22,6 +22,7 @@ From your **AWS Console**, select **EC2** and then click on **Launch instance**.
 Create a new instance `mlops-project` with **Ubuntu**, **64-bit (x86)** architecture.
 
 Select **t2.xlarge** instance type.
+
 
 Click on **Create new key pair**.
 
