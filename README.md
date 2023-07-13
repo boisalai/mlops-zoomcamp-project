@@ -6,7 +6,7 @@
 
 ## Setup
 
-follow the instructions in this [video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
+Follow the instructions in this [video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
 to prepare the environment or follow the steps 1 and 2 below.
 
 ### Step 1: Create an AWS Account
@@ -15,16 +15,50 @@ Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Crea
 
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
 
-From your **AWS Console**, select **EC2** and then click on **Launch instance**.
-
 ### Step 2: Create a new instance
 
-Create a new instance `mlops-project` with **Ubuntu**, **64-bit (x86)** architecture.
+From your **AWS Console**, select **EC2** and then click on **Launch instance**.
 
-Select **t2.xlarge** instance type.
+Create a new instance with:
+
+* **Name**: mlops-zoomcamp
+* **Amazon Machine Image (AMI)**: Ubuntu Server 22.04 LTS (HVM), SSD Volumn Type
+* **Architecture**: 64-bit (x86)
+* **Instance type**: t2.xlarge
+
+![MLOps](images/s01.png)
+
+![MLOps](images/s02.png)
+
+![MLOps](images/s03.png)
+
+Click on **Create new key pair** with:
+
+* **Key pair name**: razer
+* **Key pair type**: RSA
+* **Private key file format**: .pem
+
+![MLOps](images/s04.png)
+
+Click on **Create key pair** button, than move the downloaded `razer.pem`  file to the `~/.ssh` folder on your local machine.
+
+Increase **Configure storage** to 30 Gb.
+
+![MLOps](images/s05.png)
+
+Finally, click the **Launch instance** button.
+
+You should see something like this.
+
+![MLOps](images/s06.png)
+
+# Je suis rendu ici...
 
 
-Click on **Create new key pair**.
+
+
+
+
 
 ```bash
 # Configure your AWS acoount
