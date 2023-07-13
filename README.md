@@ -25,7 +25,7 @@ Create a new instance with the name **mlops-zoomcamp**.
 
 Select:
 
-* **Amazon Machine Image (AMI)**: Ubuntu Server 22.04 LTS (HVM), SSD Volumn Type
+* **Amazon Machine Image (AMI)**: Ubuntu Server 22.04 LTS (HVM), SSD Volume Type
 * **Architecture**: 64-bit (x86)
 
 ![MLOps](images/s02.png)
@@ -53,6 +53,19 @@ Finally, click the **Launch instance** button.
 You should see something like this.
 
 ![MLOps](images/s06.png)
+
+Take note of the public IP address (mine is `3.99.223.16`).
+
+### Step 3: Connect local machine to the EC2 instance
+
+Connect to this instance with the following commands.
+Don't forget to replace the public IP with your own (mine is `3.99.223.16`).
+
+```bash
+$ chmod 400 ~/.ssh/razer.pem 
+$ ssh -i ~/.ssh/razer.pem ubuntu@3.99.223.16 
+```
+
 
 # Je suis rendu ici...
 
