@@ -19,7 +19,7 @@ Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
 
 From your **AWS Console**, select **EC2** and then click on **Launch instance**.
 
-Create a new instance with the name **mlops-zoomcamp**.
+Create a new instance with the name **mlops-project**.
 
 ![MLOps](images/s01.png)
 
@@ -54,12 +54,12 @@ You should see something like this.
 
 ![MLOps](images/s06.png)
 
-Take note of the **Public IPv4 address** (mine is `99.79.47.77`).
+Take note of the **Public IPv4 address** (mine is `3.99.213.229`).
 
 ### Step 3: Connect local machine to the EC2 instance
 
 Connect to this instance with the following commands.
-Don't forget to replace the public IP with your own (mine is `99.79.47.77`).
+Don't forget to replace the public IP with your own (mine is `3.99.213.229`).
 
 ```bash
 $ chmod 400 ~/.ssh/razer.pem 
@@ -81,8 +81,8 @@ $ logout
 You don't need to run the previous command every time. Just create a config file `~/.ssh/config` like this.
 
 ```bash
-Host mlops-zoomcamp
-    HostName 99.79.47.77
+Host mlops-project
+    HostName 3.99.213.229
     User ubuntu
     IdentityFile ~/.ssh/razer.pem
     StrictHostKeyChecking no
@@ -146,6 +146,7 @@ We should see this.
 On your remote instance, run the following command to start jupyter notebook.
 
 ```bash
+$ conda activate mlops-project 
 $ jupyter notebook
 ```
 
