@@ -54,7 +54,7 @@ You should see something like this.
 
 ![MLOps](images/s06.png)
 
-Take note of the public IP address (mine is `3.99.223.16`).
+Take note of the **Public IPv4 address** (mine is `99.79.47.77`).
 
 ### Step 3: Connect local machine to the EC2 instance
 
