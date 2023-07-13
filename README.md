@@ -99,25 +99,17 @@ $ logout
 
 Note that every time we stop and restart the instance, we will have to change the public IP address.
 
-### Step 4: Install required packages on the instance 
+### Step 4: Install required packages on the instance
 
-Run the folowing commands on your instance.
+Run the folowing commands on your instance to install MiniConda, Docker and Docker Compose.
 
 ```bash
+$ sudo apt update
 $ sudo apt install make
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamp-project
 $ make init
 ```
-
-
-
-
-
-
-
-
-
 
 # Je suis rendu ici...
 
