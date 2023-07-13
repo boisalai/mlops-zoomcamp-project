@@ -166,7 +166,8 @@ Then go to the [Account tab of your user profile](https://www.kaggle.com/me/acco
 This will trigger the download of `kaggle.json`, a file containing your API credentials.
 
 You need to copy this key on your instance. 
-To do so, drag the `kaggle.json` file you downloaded to the `~/mlops-zoomcamp-project` in the VS Code connected to the instance.
+To do so, drag the `kaggle.json` file you downloaded on your local machine 
+to the `~/mlops-zoomcamp-project` in the VS Code connected to the instance.
 
 
 # Je suis rendu ici...
