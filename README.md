@@ -74,6 +74,10 @@ We are now connected to the remote service.
 
 Enter `logout` to close the connection.
 
+```bash
+$ logout
+```
+
 You don't need to run the previous command every time. Just create a config file `~/.ssh/config` like this.
 
 ```bash
@@ -87,10 +91,30 @@ Host mlops-zoomcamp
 Now, we can connect to our instance with this command.
 
 ```bash
-ssh mlops-zoomcamp
+# To connect to our instance. 
+$ ssh mlops-zoomcamp
+# To exit SSH connection.
+$ logout
 ```
 
-Note that every time we restart the instance, we will have to change the public IP address.
+Note that every time we stop and restart the instance, we will have to change the public IP address.
+
+### Step 4: Install required packages on the instance 
+
+Run the folowing commands on your instance.
+
+```bash
+$ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+$ make init
+```
+
+
+
+
+
+
+
+
 
 
 # Je suis rendu ici...

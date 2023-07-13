@@ -2,7 +2,6 @@
 src
 data
 git.sh
-Makefile
 note.txt
 
 .ipynb_checkpoints
