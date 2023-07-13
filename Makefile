@@ -7,7 +7,7 @@ install:
 	conda activate mlops-project
 
 	echo "Install dependencies"
-	pip install -r requirements.txt
+	pip install -q -r requirements.txt
 
 init:
 	echo "Install Miniconda"
