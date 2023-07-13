@@ -132,7 +132,8 @@ Now, we want access to this remote computer from our Visual Studio Code (VS Code
 
 Open VS Code from your local machine. 
 In VS Code, find and install the **Remote - SSH** extension. 
-Then go to the **Command Palette** (`Shift+Cmd+P`), select **Remote-SSH: Connect to Host…**​, 
+Then go to the **Command Palette** (`Shift+Cmd+P`), 
+select **Remote-SSH: Connect to Host...**​, 
 select the configured SSH host `mlops-zoomcamp`,
 open `mlops-zoomcamp-project` folder and click on **OK**.
 
@@ -158,15 +159,15 @@ Now, if we go to http://localhost:8888/tree, we should see that jupyter notebook
 
 ![s10](images/s10.png)
 
-### Step 7: Authenticating with Kaggle using `kaggle.json``
+### Step 7: Authenticating with Kaggle using `kaggle.json`
 
 Navigate to https://www.kaggle.com. 
 Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
 This will trigger the download of `kaggle.json`, a file containing your API credentials.
 
-Then move `kaggle.json` into the folder where the API expects to find it.
+You need to copy this key on your instance. 
+To do so, drag the `kaggle.json` file you downloaded to the `~/mlops-zoomcamp-project` in the VS Code connected to the instance.
 
-{"username":"xxxxxxxx","key":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
 
 # Je suis rendu ici...
 
