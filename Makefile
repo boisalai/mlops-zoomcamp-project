@@ -2,12 +2,7 @@ hello:
 	echo "Hello, World"
 
 install:
-	echo "Create a conda environment and activate it"
-	export CONDA_ALWAYS_YES="true"
-	conda create -n mlops-project python==3.9
-	conda init bash
 	conda activate mlops-project
-
 	echo "Install dependencies"
 	pip install -r requirements.txt
 
@@ -32,3 +27,8 @@ init:
 	echo "Add your user to the docker group"
 	# See https://docs.docker.com/engine/install/linux-postinstall/
 	sudo usermod -aG docker ${USER}
+
+	echo "Create a conda environment and initialize"
+	export CONDA_ALWAYS_YES="true"
+	conda create -n mlops-project python==3.9
+	conda init bash

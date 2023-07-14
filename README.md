@@ -112,11 +112,10 @@ $ cd mlops-zoomcamp-project
 $ make init
 ```
 
-Exit (with `exit` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
+Log out (with `logout` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
 
 ```bash
-$ exit
-logout
+$ logout
 Connection to 3.99.132.220 closed.
 $ ssh mlops-project
 ``````
