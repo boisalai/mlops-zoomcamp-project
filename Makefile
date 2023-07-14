@@ -12,6 +12,7 @@ install:
 
 init:
 	echo "Install Miniconda"
+	rm -rf /home/ubuntu/miniconda3
 	wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
 	bash Miniconda3-py39_4.12.0-Linux-x86_64.sh -b -p
 	rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
@@ -28,4 +29,4 @@ init:
 
 	echo "Add your user to the docker group"
 	# See https://docs.docker.com/engine/install/linux-postinstall/
-	sudo usermod -aG docker $USER
+	sudo usermod -aG docker ${USER}
