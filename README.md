@@ -103,7 +103,8 @@ Note that every time we stop and restart the instance, we will have to change th
 
 ### Step 4: Install required packages on the instance
 
-Run the folowing commands on your instance to install MiniConda, Docker and Docker Compose.
+Run the folowing commands on your instance to install MiniConda, Docker and Docker Compose, 
+and create a conda environment.
 
 ```bash
 $ sudo apt update && sudo apt install make
@@ -112,7 +113,8 @@ $ cd mlops-zoomcamp-project
 $ make init
 ```
 
-Log out (with `logout` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
+Log out (with `logout` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated
+and changes to take effect.
 
 ```bash
 $ logout
@@ -126,7 +128,7 @@ Run the following command on your instance and docker should work fine.
 $ docker run hello-world
 ``` 
 
-Run the following commands on your instance to create a conda environment and install the other required packages into it.
+Run the following commands on your instance to activate the conda environment and install the required packages into it.
 
 ```bash
 $ cd ~/mlops-zoomcamp-project
