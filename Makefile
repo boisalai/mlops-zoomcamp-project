@@ -17,7 +17,6 @@ init:
 	rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
 	
 	echo "Install Docker"
-	sudo apt-get remove docker docker-engine docker.io containerd runc
 	sudo apt install docker.io
 	
 	echo "Download Docker Compose and made it executable"
