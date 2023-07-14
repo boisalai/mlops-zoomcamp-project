@@ -112,7 +112,14 @@ $ cd mlops-zoomcamp-project
 $ make init
 ```
 
-Log out (with `logout` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
+Exit (with `exit` command) and log back (with `ssh mlops-project` command) in so that your group membership is re-evaluated.
+
+```bash
+$ exit
+logout
+Connection to 3.99.132.220 closed.
+$ ssh mlops-project
+``````
 
 Run the following command on your instance and docker should work fine.
 

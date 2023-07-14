@@ -5,6 +5,7 @@ install:
 	echo "Create a conda environment and activate it"
 	export CONDA_ALWAYS_YES="true"
 	conda create -n mlops-project python==3.9
+	conda init bash
 	conda activate mlops-project
 
 	echo "Install dependencies"
@@ -17,7 +18,6 @@ init:
 	bash Miniconda3-py39_4.12.0-Linux-x86_64.sh -b -p
 	rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
 	/home/ubuntu/miniconda3/bin/conda init
-	conda init bash
 	
 	echo "Install Docker"
 	sudo apt install docker.io
