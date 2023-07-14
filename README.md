@@ -134,7 +134,7 @@ Now, we want access to this remote computer from our Visual Studio Code (VS Code
 Open VS Code from your local machine. 
 In VS Code, find and install the **Remote - SSH** extension. 
 Then go to the **Command Palette** (`Shift+Cmd+P`), 
-select **Remote-SSH: Connect to Host...**​, 
+select **Remote-SSH: Connect to Host**​, 
 select the configured SSH host `mlops-zoomcamp`,
 open `mlops-zoomcamp-project` folder and click on **OK**.
 

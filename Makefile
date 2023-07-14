@@ -17,6 +17,7 @@ init:
 	bash Miniconda3-py39_4.12.0-Linux-x86_64.sh -b -p
 	rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
 	/home/ubuntu/miniconda3/bin/conda init
+	conda init bash
 	
 	echo "Install Docker"
 	sudo apt install docker.io
