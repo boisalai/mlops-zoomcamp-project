@@ -1,25 +1,27 @@
 hello:
 	echo "Hello, World"
 
-install:
-	echo "Create a conda environment"
-	export CONDA_ALWAYS_YES="true"
-	conda create -n mlops-project python==3.9
-	echo "Wait 5 seconds..."
-	sleep 5
-	echo "Activate conda environment"
-	conda activate mlops-project
-	echo "Install dependencies"
+mamba: 
+	cd /mlops-zoomcamp-project
+	mamba create --name mlops-project python=3.10.9
+	mamba activate mlops-project
 	pip install -r requirements.txt
 
 init:
-	echo "Install Miniconda"
-	rm -rf /home/ubuntu/miniconda3
-	wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
-	bash Miniconda3-py39_4.12.0-Linux-x86_64.sh -b -p
-	rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
-	# /home/ubuntu/miniconda3/bin/conda init
+	# echo "Install Miniconda"
+	# rm -rf /home/ubuntu/miniconda3
+	# wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
+	# bash Miniconda3-py39_4.12.0-Linux-x86_64.sh -b -p
+	# rm Miniconda3-py39_4.12.0-Linux-x86_64.sh
 	
+	echo "Install Mamba"
+	# Install mamba instead of conda, because it's faster 
+	# https://mamba.readthedocs.io/en/latest/installation.html
+	rm -rf /home/ubuntu/miniconda3
+	wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+	bash Mambaforge-$(uname)-$(uname -m).sh
+	rm Mambaforge-$(uname)-$(uname -m).sh
+
 	echo "Install Docker"
 	sudo apt install docker.io
 	

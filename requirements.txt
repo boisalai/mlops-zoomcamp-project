@@ -1,6 +1,11 @@
-notebook
-kaggle
-pandas
-numpy
+mlflow
+jupyter
 scikit-learn
+pandas
+seaborn
+hyperopt
 xgboost
+fastparquet
+prefect
+prefect-aws
+boto3

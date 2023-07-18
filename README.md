@@ -2,6 +2,25 @@
 <p align="center" width="100%"><img src="assets/pic.png" alt="Pic" style="width: 50%;  display: block; margin: auto;"></p>
 -->
 
+<div align="center">
+    <h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
+<br />
+
+![functime](https://github.com/descendant-ai/functime/raw/main/static/images/functime_banner.png)
+[![Python](https://img.shields.io/pypi/pyversions/functime)](https://pypi.org/project/functime/)
+[![PyPi](https://img.shields.io/pypi/v/functime?color=blue)](https://pypi.org/project/functime/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![GitHub Publish to PyPI](https://github.com/descendant-ai/functime/actions/workflows/publish.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/publish.yml)
+[![GitHub Build Docs](https://github.com/descendant-ai/functime/actions/workflows/docs.yml/badge.svg)](https://docs.functime.ai/)
+[![GitHub Run Quickstart](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml)
+
+
+https://img.shields.io/badge/Python_3.9
+
+
+</div>
+
+
 # Project
 
 ## Setup
@@ -132,7 +151,9 @@ Run the following commands on your instance to activate the conda environment an
 
 ```bash
 $ cd ~/mlops-zoomcamp-project
-$ make install
+$ conda create -n mlops-project python==3.9
+$ conda activate mlops-project
+$ pip install -r requirements.txt
 ```
 
 ### Step 5: Connect Visual Studio Code to your instance
@@ -143,7 +164,7 @@ Open VS Code from your local machine.
 In VS Code, find and install the **Remote - SSH** extension. 
 Then go to the **Command Palette** (`Shift+Cmd+P`), 
 select **Remote-SSH: Connect to Host**​, 
-select the configured SSH host `mlops-zoomcamp`,
+select the configured SSH host `mlops-project`,
 open `mlops-zoomcamp-project` folder and click on **OK**.
 
 We should see this.
@@ -152,7 +173,7 @@ We should see this.
 
 ### Step 6: Use Jupyter Notebook from remote machine
 
-On your remote instance, run the following command to start jupyter notebook.
+On your remote instance, run the following command to start Jupyter notebook.
 
 ```bash
 $ conda activate mlops-project 
@@ -165,20 +186,29 @@ Select **PORTS**, click on **Forward a Port** and open the port `8888`.
 
 ![s09](images/s09.png)
 
-Now, if we go to http://localhost:8888/tree, we should see that jupyter notebook is alive.
+Copy and paste one of the URLs (I have http://localhost:8888/?token=c8de56fa...) to the web browser, 
+you should see that Jupyter notebook is alive.
 
 ![s10](images/s10.png)
 
 ### Step 7: Authenticating with Kaggle using `kaggle.json`
 
+With Jupyter, open the `notebooks/used-car-price-prediction.ipynb` notebook.
+
 Navigate to https://www.kaggle.com. 
-Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
+Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and click on **Create New Token** button. 
 This will trigger the download of `kaggle.json`, a file containing your API credentials.
 
 You need to copy this key on your instance. 
+
 To do so, drag the `kaggle.json` file you downloaded on your local machine 
 to the `~/mlops-zoomcamp-project` in the VS Code connected to the instance.
 
+Or just run the following command after changing the **Public IPv4 DNS** (mine is `ec2-3-99-132-220.ca-central-1.compute.amazonaws.com`).
+
+```bash
+$ scp -i ~/.ssh/razer.pem ~/downloads/kaggle.json ubuntu@ec2-3-99-132-220.ca-central-1.compute.amazonaws.com:~/mlops-zoomcamp-project
+```
 
 # Je suis rendu ici...
 
