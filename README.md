@@ -14,16 +14,88 @@
 [![GitHub Build Docs](https://github.com/descendant-ai/functime/actions/workflows/docs.yml/badge.svg)](https://docs.functime.ai/)
 [![GitHub Run Quickstart](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml)
 
-
 [![Python]](https://img.shields.io/badge/Python_3.9)
-
-
 </div>
 
 
 # Project
 
-## Setup
+# Objective
+
+# Setting up for local environment
+
+I assume Anaconda, Docker, Docker-Compose and make are already installed. Otherwise, see
+[here](https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/01-intro/README.md#12-environment-preparation)
+and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=52) for instructions.
+
+**Note**: I have tested the codes on macOS. It can certainly be run on Linux and Windows with small modifications.
+
+## 1. Clone the repository, and navigate to the downloaded folder.
+
+Clone the repository, and navigate to the downloaded folder.
+
+```bash
+$ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+$ cd mlops-zoomcamm-project
+```
+
+2. Create and activate a new environment, named `mlops-project` with Python 3.9. If prompted to proceed with the install (`Proceed ([y]/n)?`) type `y`.
+
+```bash
+$ conda create -n mlops-project python=3.9
+$ conda activate mlops-project
+```
+
+<!-->
+3. Install the prerequisites for building the psycopg2 package from source on Ubuntu:
+
+```bash
+sudo apt install libpq-dev python3-dev
+```
+-->
+
+3. Install requirements for the environment:
+
+```bash
+$ pip install -r requirements.txt
+```
+
+4. Authenticating with Kaggle using `kaggle.json`.
+
+* Navigate to https://www.kaggle.com. Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
+This will trigger the download of `kaggle.json`, a file containing your API credentials.
+* From the `kaggle.json` file, copy and paste the username and key to the 
+KAGGLE_USERNAME and KAGGLE_KEY constant variables above. Or move the `kaggle.json` file to `./kaggle.json` or `~/.kaggle/kaggle.json`.
+
+5. Start Prefect
+
+prefect orion start
+prefect config set PREFECT_API_URL=http://127.0.0.1:4200/api
+-- > Est-ce que ces instructions m'ont aidé?
+prefect config set PREFECT_SERVER_API_HOST=localhost
+prefect profile use default
+
+6. Start MLflow
+
+# Start mlflow with this command
+mlflow
+mlflow ui --backend-store-uri sqlite:///mlflow.db
+This will open the UI on http://127.0.0.1:5000/. You should see this.
+
+
+5. Train the model.
+
+In fact, this step will download the data from Kaggle, feature enginerring it, prepare the datasets,
+Train the model with multiple hyperparameter combinations, 
+re-train the model with the best hyperparameters, 
+register the model to staging
+
+```bash
+$ make train
+```
+
+
+# Setting up for AWS cloud environment
 
 Follow the steps 1 to 7 below.
 
