@@ -15,7 +15,7 @@
 [![GitHub Run Quickstart](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml)
 
 
-https://img.shields.io/badge/Python_3.9
+[![Python]](https://img.shields.io/badge/Python_3.9)
 
 
 </div>
