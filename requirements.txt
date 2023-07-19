@@ -6,7 +6,7 @@ hyperopt
 xgboost
 fastparquet
 kaggle
-mlflow
+mlflow==2.5.0
 prefect
 prefect-aws
 boto3

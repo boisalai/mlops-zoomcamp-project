@@ -55,6 +55,8 @@ To complete
 
 ## Instructions
 
+For those who don't want to replicate the project in AWS, I've added a section to run part of the project on your local machine.
+
 ### Setting up for local environment
 
 I assume Anaconda, Docker, Docker-Compose, Git and Make are already installed. Otherwise, see
@@ -67,7 +69,7 @@ and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
-$ cd mlops-zoomcamm-project
+$ cd mlops-zoomcamp-project
 ```
 
 2. Create and activate a new environment named `mlops-project` with Python 3.9. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
@@ -155,11 +157,9 @@ Set 'PREFECT_API_URL' to 'http://127.0.0.1:4200/api'.
 Updated profile 'default'.
 ```
 
-Open the Prefect Dashboard at http://127.0.0.1:4200.
+Open the Prefect Dashboard at http://127.0.0.1:4200. You should see this.
 
-You should see this.
-
-TODO
+![s11](images/s11.png)
 
 6. Start MLflow UI.
 
@@ -167,9 +167,18 @@ TODO
 $ mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
-Then, open the MLflow UI on http://127.0.0.1:5000/. 
+Then, open the MLflow UI on http://127.0.0.1:5000/. You should see this.
+
+![s12](images/s12.png)
 
 7. Train the model.
+
+In another terminal, run the following commands.
+
+```bash
+$ conda activate mlops-project
+$ make train
+```
 
 This step involves the following tasks:
 
@@ -180,16 +189,28 @@ This step involves the following tasks:
 * Re-training the model using the best hyperparameters.
 * Registering the model in the MLFlow staging area.
 * All of these tasks are orchestrated using Prefect.
+  
+You should see something like this.
 
-In another terminal, run the following commands.
+<table>
+    <tr>
+        <td>
+            <b>Terminal<b><br>
+            <img src="images/s13.png">
+        </td>
+        <td>
+            <b>Prefect Dashboard<b><br>
+            <img src="images/s14.png">
+        </td>
+        <td>
+            <b>Prefect Dashboard<b><br>
+            <img src="images/s15.png">
+        </td>
+    </tr>
+</table>
 
-```bash
-$ cd mlops-zoomcamp-project
-$ conda activate mlops-project
-$ make train
-```
 
-You should see this.
+
 
 8. Test the model.
 
@@ -197,12 +218,15 @@ You should see this.
 $ make test
 ```
 
+TODO
+
 9. Deploy the model to production
 
 ```bash
 $ make deploy 
 ```
 
+TODO
 
 
 
