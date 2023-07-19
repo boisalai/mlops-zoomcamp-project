@@ -65,16 +65,16 @@ and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw
 
 **Note**: I have tested the codes on M1 MacBook Pro. It can certainly be run on Linux and Windows with small modifications.
 
-1. Clone the repository, and navigate to the downloaded folder.
+**1. Clone the repository, and navigate to the downloaded folder**
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamp-project
 ```
 
-2. Create and activate a new environment named `mlops-project` with Python 3.9. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
+**2. Create and activate a new environment named `mlops-project` with Python 3.9** 
 
-Run these commands:
+Run these commands. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
 
 ```bash
 $ conda create -n mlops-project python=3.9
