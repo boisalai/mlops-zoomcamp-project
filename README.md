@@ -194,7 +194,7 @@ You should see something like this.
 
 <table>
     <tr>
-        <td style="vertical-align: top;">
+        <td>
             <b>Terminal<b><br>
             <img src="images/s13.png">
         </td>
@@ -225,17 +225,35 @@ $ make deploy
 
 TODO
 
-
-
 ### Setting up for AWS cloud environment
 
 Follow the steps 1 to 7 below.
 
-#### Step 1: Create an AWS Account
+#### Step 1: Create an AWS Account 
 
 Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
-
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
+
+Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, click on Users. 
+
+![s16](images/s16.png)
+
+Click on **Add users** button, enter `mlops-project-user` as **User name**, click on **Next** button.
+Click on **Next** button again, then on the **Create user** button.
+
+<table>
+    <tr>
+        <td>
+            <img src="images/s17.png">
+        </td>
+        <td>
+            <img src="images/s18.png">
+        </td>
+        <td>
+            <img src="images/s19.png">
+        </td>
+    </tr>
+</table>
 
 ### Step 2: Create a new instance
 
