@@ -1,10 +1,5 @@
-<!--
-<p align="center" width="100%"><img src="im/pic.png" alt="Pic" style="width: 50%;  display: block; margin: auto;"></p>
--->
-
 <div align="center">
-    <h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
-    <br/>
+<h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
 
 ![](images/banner.png)
 [![Python](https://img.shields.io/pypi/pyversions/functime)](https://pypi.org/project/functime/)
@@ -17,7 +12,8 @@
 [![Python]](https://img.shields.io/badge/Python-3.9)
 <img alt="any text you like" src="https://img.shields.io/badge/any%20text-you%20like-blue">
 
-<img alt="any text you like" src="https://img.shields.io/badge/Python-3.9-blue">
+<img alt="any text you like" src="https://img.shields.io/badge/python-3.9-blue">
+<img alt="any text you like" src="https://img.shields.io/badge/code%20style-black-black">
 </div>
 
 
