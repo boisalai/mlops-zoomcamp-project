@@ -2,26 +2,31 @@
 <h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
 
 ![](images/banner.png)
-[![Python](https://img.shields.io/pypi/pyversions/functime)](https://pypi.org/project/functime/)
-[![PyPi](https://img.shields.io/pypi/v/functime?color=blue)](https://pypi.org/project/functime/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![GitHub Publish to PyPI](https://github.com/descendant-ai/functime/actions/workflows/publish.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/publish.yml)
-[![GitHub Build Docs](https://github.com/descendant-ai/functime/actions/workflows/docs.yml/badge.svg)](https://docs.functime.ai/)
-[![GitHub Run Quickstart](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml)
-
-[![Python]](https://img.shields.io/badge/Python-3.9)
 <img alt="any text you like" src="https://img.shields.io/badge/any%20text-you%20like-blue">
 
 <img alt="any text you like" src="https://img.shields.io/badge/python-3.9-blue">
 <img alt="any text you like" src="https://img.shields.io/badge/code%20style-black-black">
+<a target="_blank" href="https://colab.research.google.com/github/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/model_monitoring/model_monitoring.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+
+[TLDR](#TLDR) | [Problem](#Problem) | [Instructions](#Instructions) | [Best%20practices](#Best%20practices) [License](#License) | [Acknowledgments](#Acknowledgments)
+
+
+
 </div>
 
 
-# Project
+## TLDR
 
-# Objective
+## Problem
 
-# Setting up for local environment
+## Architecture
+
+## Instructions
+
+### Setting up for local environment
 
 I assume Anaconda, Docker, Docker-Compose and make are already installed. Otherwise, see
 [here](https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/01-intro/README.md#12-environment-preparation)
@@ -162,11 +167,11 @@ $ make deploy
 
 
 
-# Setting up for AWS cloud environment
+### Setting up for AWS cloud environment
 
 Follow the steps 1 to 7 below.
 
-### Step 1: Create an AWS Account
+#### Step 1: Create an AWS Account
 
 Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
 
@@ -390,3 +395,10 @@ Connect the environment to a kernel and start jupyter:
 $ python -m ipykernel install --user --display-name pipenv_test --name pipenv_test
 $ jupyter notebook
 ```
+
+## License
+
+The code and checkpoints are licensed under [MIT License](https://opensource.org/license/mit/).
+
+## Acknowledgments
+
