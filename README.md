@@ -28,9 +28,9 @@ It will be used by the client to predict the price of a car of their choice.
 
 I used [Kaggle's used car data set](https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data) 
 because it had a variety of categorical and numerical data and allows you to explore different ways of dealing
-with missing data. I divided out my project into three parts:
+with missing data.
 
-https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
+
 
 
 ## Design & flow architecture
