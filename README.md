@@ -9,7 +9,6 @@
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-
 [Problem](#problem-statement) | [Architecture](#Architecture) | [Instructions](#Instructions) | [Best practices](#Best%20practices) | [License](#License) | [Acknowledgments](#Acknowledgments)
 
 </div>
@@ -30,25 +29,77 @@ I used [Kaggle's used car data set](https://www.kaggle.com/datasets/austinreese/
 because it had a variety of categorical and numerical data and allows you to explore different ways of dealing
 with missing data.
 
+The Kaggle dataset "austinreese/craigslist-carstrucks-data" is a collection of data on used car prices in Austin,
+Texas, scraped from Craigslist. The dataset contains information on various car models, years, and prices, as well
+as additional features such as mileage, fuel type, and transmission type.
 
+Here's a breakdown of the dataset's structure:
+
+* The dataset contains 426,880 entries and 26 columns.
+* The variables include:
+  * "id": a unique identifier for each car listing
+  * "manufacturer": the make of the vehicle
+  * "model": the model of the vehicle
+  * "year": the year of the vehicle
+  * "price": the listing price of the vehicle
+  * "odometer": the mileage on the vehicle
+  * "fuel": the fuel method of the vehicle (e.g., gasoline, diesel, hybrid)
+  * "transmission": the car's transmission type (e.g., automatic, manual)
+  * "posting_date": the listing date of the vehicle on Craiglist
+
+<!--
+RangeIndex: 426880 entries, 0 to 426879
+Data columns (total 26 columns):
+ #   Column        Non-Null Count   Dtype  
+---  ------        --------------   -----  
+ 0   id            426880 non-null  int64  
+ 1   url           426880 non-null  object 
+ 2   region        426880 non-null  object 
+ 3   region_url    426880 non-null  object 
+ 4   price         426880 non-null  int64  
+ 5   year          425675 non-null  float64
+ 6   manufacturer  409234 non-null  object 
+ 7   model         421603 non-null  object 
+ 8   condition     252776 non-null  object 
+ 9   cylinders     249202 non-null  object 
+ 10  fuel          423867 non-null  object 
+ 11  odometer      422480 non-null  float64
+ 12  title_status  418638 non-null  object 
+ 13  transmission  424324 non-null  object 
+ 14  VIN           265838 non-null  object 
+ 15  drive         296313 non-null  object 
+ 16  size          120519 non-null  object 
+ 17  type          334022 non-null  object 
+ 18  paint_color   296677 non-null  object 
+ 19  image_url     426812 non-null  object 
+ 20  description   426810 non-null  object 
+ 21  county        0 non-null       float64
+ 22  state         426880 non-null  object 
+ 23  lat           420331 non-null  float64
+ 24  long          420331 non-null  float64
+ 25  posting_date  426812 non-null  object 
+dtypes: float64(5), int64(2), object(19)
+memory usage: 84.7+ MB
+-->
 
 
 ## Design & flow architecture
 
 The architecture below depicts the system design:
 
+To complete
+
 ## Instructions
 
 ### Setting up for local environment
 
-I assume Anaconda, Docker, Docker-Compose and make are already installed. Otherwise, see
+I assume Anaconda, Docker, Docker-Compose, Git and Make are already installed. Otherwise, see
 [here](https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/01-intro/README.md#12-environment-preparation)
 and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=52) for instructions.
 
 **Note**: I have tested the codes on M1 MacBook Pro. It can certainly be run on Linux and Windows with small modifications.
 
 1. Clone the repository, and navigate to the downloaded folder.
-
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
@@ -64,45 +115,21 @@ $ conda create -n mlops-project python=3.9
 $ conda activate mlops-project
 ```
 
-But with my MacBook Pro M1, I have incompatibility issues between "arm64" and "x86_64" Python dependencies.
-To solve this problem, I followed the instructions given 
-[here](https://towardsdatascience.com/python-conda-environments-for-both-arm64-and-x86-64-on-m1-apple-silicon-147b943ffa55).
+:warning: **Apple Silicon and the Library Incompatibility Issue**
 
-If you have an M1/M2 MacBook like me, you should add the following code to `~/.zshrc` or `~/.bashrc`.
+I encountered compatibility problems between "arm64" and "x86_64" Python dependencies on my MacBook Pro M1. 
+Certain dependencies are not compatible with the ARM architecture, necessitating the creation of an environment using x86 builds.
 
-```bash
-## Create x86 conda environment
-create_x86_conda_environment () {
-  # example usage: create_x86_conda_environment myenv_x86 python=3.9
-  CONDA_SUBDIR=osx-64 conda create -n $@
-  conda activate $1
-}
-# Create ARM conda environment
-create_ARM_conda_environment () {
-# example usage: create_ARM_conda_environment myenv_x86 python=3.9
-  CONDA_SUBDIR=osx-arm64 conda create -n $@
-  conda activate $1
-}
-```
-
-Then run `source ~/.zshrc` or `source ~/.bashrc` to apply the changes immediately without having to restart the shell.
-
-Then, run the following commands.
+To resolve this issue, I followed the instructions provided [here](https://conda-forge.org/docs/user/tipsandtricks.html) 
+in the section titled Installing Apple Intel Packages on Apple Silicon. For Apple Silicon M1 or M2, execute the following commands:
 
 ```bash
-$ create_x86_conda_environment mlops-project python=3.9
+$ CONDA_SUBDIR=osx-64 conda create -n mlops-project python=3.9
+$ conda activate mlops-project
+$ conda config --env --set subdir osx-64
 ```
 
 You can proceed to the following steps as normal.
-
-
-<!-->
-3. Install the prerequisites for building the psycopg2 package from source on Ubuntu:
-
-```bash
-sudo apt install libpq-dev python3-dev
-```
--->
 
 3. Install requirements for the environment.
 
@@ -137,7 +164,7 @@ $ conda activate mlops-project
 $ prefect config set PREFECT_API_URL=http://localhost:4200/api
 ```
 
-Than, open the Prefect Orion UI on http://127.0.0.1:4200/.
+Then, open the Prefect Orion UI on http://127.0.0.1:4200/.
 
 6. Start MLflow UI.
 
@@ -150,12 +177,12 @@ Then, open the MLflow UI on http://127.0.0.1:5000/.
 7. Train the model.
 
 In fact, this step will download the data from Kaggle, feature enginerring it, prepare the datasets,
-Train the model with multiple hyperparameter combinations, 
+train the model with multiple hyperparameter combinations, 
 re-train the model with the best hyperparameters, 
 register the model into MLFlow staging area.
 All off this is orchestrated with Prefect.
 
-In another terminal, run the following command.
+In another terminal, run the following commands.
 
 ```bash
 $ cd mlops-zoomcamp-project
@@ -418,7 +445,8 @@ The code and checkpoints are licensed under [MIT License](https://opensource.org
 I am deeply grateful for the effort this fantastic group of individuals has invested in ensuring our understanding of the different facets of MLOps.
 
 * Alexey Grigorev
-Kevin Kho
-Ankush Khanna
-Sejal Vaidya
-Victoria Perez Mola
+* Cristian Martinez (MLflow)
+* Jeff Hale (Prefect)
+* Bianca Hoch (Prefect)
+* Emeli Dral (Evidently)
+* Sejal Vaidya (IaC and Terraform)
