@@ -1,4 +1,3 @@
-mlflow
 jupyter
 scikit-learn
 pandas
@@ -6,6 +5,8 @@ seaborn
 hyperopt
 xgboost
 fastparquet
+kaggle
+mlflow
 prefect
 prefect-aws
 boto3

@@ -12,6 +12,6 @@ flavors:
     model_class: xgboost.core.Booster
     model_format: xgb
     xgb_version: 1.7.6
-mlflow_version: 2.4.2
-model_uuid: 070430bfba2149d6a503c875214a6c9a
-utc_time_created: '2023-07-17 11:02:02.326511'
+mlflow_version: 2.5.0
+model_uuid: 00da57e754514e21bca047d0dc2bed21
+utc_time_created: '2023-07-18 19:32:57.927876'

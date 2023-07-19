@@ -28,23 +28,56 @@ I assume Anaconda, Docker, Docker-Compose and make are already installed. Otherw
 [here](https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/01-intro/README.md#12-environment-preparation)
 and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=52) for instructions.
 
-**Note**: I have tested the codes on macOS. It can certainly be run on Linux and Windows with small modifications.
+**Note**: I have tested the codes on M1 MacBook Pro. It can certainly be run on Linux and Windows with small modifications.
 
-## 1. Clone the repository, and navigate to the downloaded folder.
+1. Clone the repository, and navigate to the downloaded folder.
 
-Clone the repository, and navigate to the downloaded folder.
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamm-project
 ```
 
-2. Create and activate a new environment, named `mlops-project` with Python 3.9. If prompted to proceed with the install (`Proceed ([y]/n)?`) type `y`.
+2. Create and activate a new environment named `mlops-project` with Python 3.9. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
+
+Normally, we should run these commands:
 
 ```bash
 $ conda create -n mlops-project python=3.9
 $ conda activate mlops-project
 ```
+
+But with my MacBook Pro M1, I have incompatibility issues between "arm64" and "x86_64" Python dependencies.
+To solve this problem, I followed the instructions given 
+[here](https://towardsdatascience.com/python-conda-environments-for-both-arm64-and-x86-64-on-m1-apple-silicon-147b943ffa55).
+
+If you have an M1/M2 MacBook like me, you should add the following code to `~/.zshrc` or `~/.bashrc`.
+
+```bash
+## Create x86 conda environment
+create_x86_conda_environment () {
+  # example usage: create_x86_conda_environment myenv_x86 python=3.9
+  CONDA_SUBDIR=osx-64 conda create -n $@
+  conda activate $1
+}
+# Create ARM conda environment
+create_ARM_conda_environment () {
+# example usage: create_ARM_conda_environment myenv_x86 python=3.9
+  CONDA_SUBDIR=osx-arm64 conda create -n $@
+  conda activate $1
+}
+```
+
+Then run `source ~/.zshrc` or `source ~/.bashrc` to apply the changes immediately without having to restart the shell.
+
+Then, run the following commands.
+
+```bash
+$ create_x86_conda_environment mlops-project python=3.9
+```
+
+You can proceed to the following steps as normal.
+
 
 <!-->
 3. Install the prerequisites for building the psycopg2 package from source on Ubuntu:
@@ -54,45 +87,80 @@ sudo apt install libpq-dev python3-dev
 ```
 -->
 
-3. Install requirements for the environment:
+3. Install requirements for the environment.
 
 ```bash
 $ pip install -r requirements.txt
 ```
 
-4. Authenticating with Kaggle using `kaggle.json`.
+4. Authenticate with Kaggle using `kaggle.json`.
 
-* Navigate to https://www.kaggle.com. Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
+The `kaggle.json` file is typically used to authenticate API requests to the Kaggle service. 
+It contains the necessary credentials for the Kaggle API, allowing you to interact with Kaggle datasets, competitions, and other 
+resources programmatically.
+
+Navigate to https://www.kaggle.com. Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
 This will trigger the download of `kaggle.json`, a file containing your API credentials.
-* From the `kaggle.json` file, copy and paste the username and key to the 
-KAGGLE_USERNAME and KAGGLE_KEY constant variables above. Or move the `kaggle.json` file to `./kaggle.json` or `~/.kaggle/kaggle.json`.
 
-5. Start Prefect
+Move the `kaggle.json` file to `~/downloads/kaggle.json`, `~/.kaggle/kaggle.json`, or `./kaggle.json`. 
 
-prefect orion start
-prefect config set PREFECT_API_URL=http://127.0.0.1:4200/api
--- > Est-ce que ces instructions m'ont aidé?
-prefect config set PREFECT_SERVER_API_HOST=localhost
-prefect profile use default
+The script code will look for the `kaggle.json` file to set the environment variables.
 
-6. Start MLflow
+5. Start Prefect.
 
-# Start mlflow with this command
-mlflow
-mlflow ui --backend-store-uri sqlite:///mlflow.db
-This will open the UI on http://127.0.0.1:5000/. You should see this.
+```bash
+$ prefect orion start
+```
 
+In another terminal, run the following command.
 
-5. Train the model.
+```bash
+$ cd mlops-zoomcamp-project
+$ conda activate mlops-project
+$ prefect config set PREFECT_API_URL=http://localhost:4200/api
+```
+
+Than, open the Prefect Orion UI on http://127.0.0.1:4200/.
+
+6. Start MLflow UI.
+
+```bash
+$ mlflow ui --backend-store-uri sqlite:///mlflow.db
+```
+
+Then, open the MLflow UI on http://127.0.0.1:5000/. 
+
+7. Train the model.
 
 In fact, this step will download the data from Kaggle, feature enginerring it, prepare the datasets,
 Train the model with multiple hyperparameter combinations, 
 re-train the model with the best hyperparameters, 
-register the model to staging
+register the model into MLFlow staging area.
+All off this is orchestrated with Prefect.
+
+In another terminal, run the following command.
 
 ```bash
+$ cd mlops-zoomcamp-project
+$ conda activate mlops-project
 $ make train
 ```
+
+You should see this.
+
+8. Test the model.
+
+```bash 
+$ make test
+```
+
+9. Deploy the model to production
+
+```bash
+$ make deploy 
+```
+
+
 
 
 # Setting up for AWS cloud environment
