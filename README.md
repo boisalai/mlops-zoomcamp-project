@@ -304,8 +304,15 @@ Default output format [None]:
 Verify aws config.
 
 ```bash
-aws sts get-caller-identity
+$ aws sts get-caller-identity
+{
+    "UserId": "AIDATI4DXUWBLLACBFUEU",
+    "Account": "225225188738",
+    "Arn": "arn:aws:iam::225225188738:user/mlops-project-user"
+}
 ```
+
+Write down your **Arn**, you will need it later to configure your AWS S3 bucket.
 
 If you have difficulties to configure `aws-cli`,
 see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 3:48 and 4:07.
@@ -337,7 +344,7 @@ Terraform v1.5.3
 on darwin_arm64
 ```
 
-**4. Create S3 Bucket and configure Terraform**
+**4. Create S3 Bucket**
 
 Before running Terraform, we need to create a bucket manually.
 
@@ -357,10 +364,84 @@ Enter `tf-state-mlops-zoomcamp` as **Bucket name** and click on **Create bucket*
     </tr>
 </table>
 
+
 If you have difficulties to create AWS S3 Bucket,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 5:17 and 7:40.
 
 
+Now, click on the newly created bucket, select the **Permissions** tab, and click on **Edit** under **Bucket policy** section.
+
+Add the following bucket policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "<your_user_arn>"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "<your_bucket_arn>"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "<your_user_arn>"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "<your_bucket_arn>/*"
+        }
+    ]
+}
+```
+
+Make sure to replace `<your_user_arn>` and `<your_bucket_arn>` with the appropriate values. 
+You can get your user arn from the command line by running `aws sts get-caller-identity`. See above.
+
+Your **Bucket ARN** can be found in the **Properties** tab of the S3 bucket.
+
+![s25](images/s25.png)
+
+You should have something like this.
+
+![s26](images/s26.png)
+
+Click on **Save changes** button.
+
+See [Configure S3 bucket as Terraform backend, Step-by-Step](https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/) for more information.
+
+**5. Configure and run Terraform**
+
+You need to change the region for your default region (mine is `ca-central-1`) in the following files:
+
+* `infrastructure/main.tf`, at line 7.
+* `infrastructure/variables.tf`, at line 3.
+* `infrastructure/modules/ecr/variables.tf`, at line 25.
+
+Next, run the `terraform init` command to initialize a working directory containing Terraform configuration files.
+
+```bash
+cd infrastructure
+terraform init
+```
+
+You should see this.
+
+![s27](images/s27.png)
+
+For explanation on initializing Terraform configuration,
+see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 27:06 and 29:00.
+
+The next step that we will run is a `terraform plan`` command.
+
+```bash
+terraform plan
+```
 
 
 ### Step 2: Create a new instance
