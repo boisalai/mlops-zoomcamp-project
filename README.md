@@ -193,7 +193,7 @@ This step involves the following tasks:
 You should see something like this.
 
 <table>
-    <tr>
+    <tr style="vertical-align: top;">
         <td>
             <b>Terminal<b><br>
             <img src="images/s13.png">
