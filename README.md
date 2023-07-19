@@ -1,12 +1,12 @@
 <!--
-<p align="center" width="100%"><img src="assets/pic.png" alt="Pic" style="width: 50%;  display: block; margin: auto;"></p>
+<p align="center" width="100%"><img src="im/pic.png" alt="Pic" style="width: 50%;  display: block; margin: auto;"></p>
 -->
 
 <div align="center">
     <h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
-<br />
+    <br/>
 
-![functime](https://github.com/descendant-ai/functime/raw/main/static/images/functime_banner.png)
+![](images/used_car.jpg)
 [![Python](https://img.shields.io/pypi/pyversions/functime)](https://pypi.org/project/functime/)
 [![PyPi](https://img.shields.io/pypi/v/functime?color=blue)](https://pypi.org/project/functime/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -14,7 +14,7 @@
 [![GitHub Build Docs](https://github.com/descendant-ai/functime/actions/workflows/docs.yml/badge.svg)](https://docs.functime.ai/)
 [![GitHub Run Quickstart](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml/badge.svg)](https://github.com/descendant-ai/functime/actions/workflows/quickstart.yml)
 
-[![Python]](https://img.shields.io/badge/Python_3.9)
+[![Python]](https://img.shields.io/badge/Python-3.9)
 </div>
 
 
