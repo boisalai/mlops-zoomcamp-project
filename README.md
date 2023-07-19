@@ -229,7 +229,7 @@ TODO
 
 Follow the steps 1 to 7 below.
 
-#### Step 1: Create an AWS Account 
+**1: Create an AWS Account**
 
 Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
@@ -240,6 +240,7 @@ Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, clic
 
 Click on **Add users** button, enter `mlops-project-user` as **User name**, click on **Next** button.
 Click on **Next** button again, then on the **Create user** button.
+Select `mlops-project-user`.
 
 <table>
     <tr>
@@ -254,6 +255,113 @@ Click on **Next** button again, then on the **Create user** button.
         </td>
     </tr>
 </table>
+
+Click on **Security credentials** tab, and click on **Create access key** button.
+Select **Command Line interface (CLI)**, check confirmation below, click **Next**, than click on **Create access key** button.
+Take note of your **Access key** and **Secret access key**.
+
+<table>
+    <tr>
+        <td>
+            <img src="images/s20.png">
+        </td>
+        <td>
+            <img src="images/s21.png">
+        </td>
+        <td>
+            <img src="images/s22.png">
+        </td>
+    </tr>
+</table>
+
+If you have difficulties to create your secret key,
+see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 1:37 and 2:46.
+
+**2. Install and configure aws-cli**
+
+Download and install [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+as a tool to use on your terminal.
+
+Check installation.
+
+```bash
+$ which aws
+/usr/local/bin/aws
+$ aws --version
+aws-cli/2.13.0 Python/3.11.4 Darwin/22.5.0 exe/x86_64 prompt/off
+```
+
+Configure `aws-cli` with your AWS secret keys.
+
+```bash
+$ aws configure
+AWS Access Key ID [None]: xxx
+AWS Secret Access Key [None]: xxx
+Default region name [ca-central-1]: 
+Default output format [None]:
+```
+
+Verify aws config.
+
+```bash
+aws sts get-caller-identity
+```
+
+If you have difficulties to configure `aws-cli`,
+see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 3:48 and 4:07.
+
+**3. Install Terraform**
+
+See [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) to install Terraform on macOS, Windows or Linux.
+
+For Homebrew on OS X, run the following commands.
+
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+```
+
+To update to the latest version of Terraform, first update Homebrew.
+
+```bash
+$ brew update
+$ brew upgrade hashicorp/tap/terraform
+Warning: hashicorp/tap/terraform 1.5.3 already installed
+```
+
+Verify the installation.
+
+```bash
+$ terraform --version
+Terraform v1.5.3
+on darwin_arm64
+```
+
+**4. Create S3 Bucket and configure Terraform**
+
+Before running Terraform, we need to create a bucket manually.
+
+Log in to your [AWS Console](https://aws.amazon.com/console/), then go to **S3** section. 
+I suppose you don't have any S3 Buckets available. In order to create an S3 bucket, we will click on **Create bucket**.
+
+Enter `tf-state-mlops-zoomcamp` as **Bucket name** and click on **Create bucket**.
+
+<table>
+    <tr>
+        <td>
+            <img src="images/s23.png">
+        </td>
+        <td>
+            <img src="images/s24.png">
+        </td>
+    </tr>
+</table>
+
+If you have difficulties to create AWS S3 Bucket,
+see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 5:17 and 7:40.
+
+
+
 
 ### Step 2: Create a new instance
 

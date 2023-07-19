@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     bucket  = "tf-state-mlops-zoomcamp"
     key     = "mlops-zoomcamp-stg.tfstate"
-    region  = "eu-west-1"
+    region  = "ca-central-1"
     encrypt = true
   }
 }
@@ -65,7 +65,7 @@ module "lambda_function" {
 
 # For CI/CD
 output "lambda_function" {
-  value     = "${var.lambda_function_name}_${var.project_id}"
+  value = "${var.lambda_function_name}_${var.project_id}"
 }
 
 output "model_bucket" {
@@ -73,7 +73,7 @@ output "model_bucket" {
 }
 
 output "predictions_stream_name" {
-  value     = "${var.output_stream_name}-${var.project_id}"
+  value = "${var.output_stream_name}-${var.project_id}"
 }
 
 output "ecr_repo" {
