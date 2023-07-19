@@ -9,7 +9,7 @@
 <img alt="any text you like" src="https://img.shields.io/badge/License-MIT-yellow">
 </a>
 
-[Problem](#problem-statement) | [Architecture](#Architecture) | [Instructions](#Instructions) | [Best practices](#Best%20practices) | [License](#License) | [Acknowledgments](#Acknowledgments)
+[Problem](#problem-statement) | [Dataset](#dataset) | [Architecture](#architecture) | [Instructions](#instructions) | [Best practices](#best%20practices) | [License](#license) | [Acknowledgments](#acknowledgments)
 
 </div>
 
@@ -47,42 +47,6 @@ Here's a breakdown of the dataset's structure:
   * "transmission": the car's transmission type (e.g., automatic, manual)
   * "posting_date": the listing date of the vehicle on Craiglist
 
-<!--
-RangeIndex: 426880 entries, 0 to 426879
-Data columns (total 26 columns):
- #   Column        Non-Null Count   Dtype  
----  ------        --------------   -----  
- 0   id            426880 non-null  int64  
- 1   url           426880 non-null  object 
- 2   region        426880 non-null  object 
- 3   region_url    426880 non-null  object 
- 4   price         426880 non-null  int64  
- 5   year          425675 non-null  float64
- 6   manufacturer  409234 non-null  object 
- 7   model         421603 non-null  object 
- 8   condition     252776 non-null  object 
- 9   cylinders     249202 non-null  object 
- 10  fuel          423867 non-null  object 
- 11  odometer      422480 non-null  float64
- 12  title_status  418638 non-null  object 
- 13  transmission  424324 non-null  object 
- 14  VIN           265838 non-null  object 
- 15  drive         296313 non-null  object 
- 16  size          120519 non-null  object 
- 17  type          334022 non-null  object 
- 18  paint_color   296677 non-null  object 
- 19  image_url     426812 non-null  object 
- 20  description   426810 non-null  object 
- 21  county        0 non-null       float64
- 22  state         426880 non-null  object 
- 23  lat           420331 non-null  float64
- 24  long          420331 non-null  float64
- 25  posting_date  426812 non-null  object 
-dtypes: float64(5), int64(2), object(19)
-memory usage: 84.7+ MB
--->
-
-
 ## Design & flow architecture
 
 The architecture below depicts the system design:
@@ -108,7 +72,7 @@ $ cd mlops-zoomcamm-project
 
 2. Create and activate a new environment named `mlops-project` with Python 3.9. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
 
-Normally, we should run these commands:
+Run these commands:
 
 ```bash
 $ conda create -n mlops-project python=3.9
@@ -129,9 +93,11 @@ $ conda activate mlops-project
 $ conda config --env --set subdir osx-64
 ```
 
-You can proceed to the following steps as normal.
+You can proceed to the next steps as normal.
 
 3. Install requirements for the environment.
+
+Install all package dependencies with this command.
 
 ```bash
 $ pip install -r requirements.txt
@@ -143,28 +109,57 @@ The `kaggle.json` file is typically used to authenticate API requests to the Kag
 It contains the necessary credentials for the Kaggle API, allowing you to interact with Kaggle datasets, competitions, and other 
 resources programmatically.
 
-Navigate to https://www.kaggle.com. Then go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
+Navigate to https://www.kaggle.com. Go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
 This will trigger the download of `kaggle.json`, a file containing your API credentials.
 
-Move the `kaggle.json` file to `~/downloads/kaggle.json`, `~/.kaggle/kaggle.json`, or `./kaggle.json`. 
+Move the `kaggle.json` file to one of these folders: `~/downloads/kaggle.json`, `~/.kaggle/kaggle.json` or `./kaggle.json`. 
 
 The script code will look for the `kaggle.json` file to set the environment variables.
 
 5. Start Prefect.
 
+Start a local Prefect server by running the following.
+
 ```bash
-$ prefect orion start
+$ prefect server start
 ```
 
-In another terminal, run the following command.
+You should see this.
+
+```txt
+ ___ ___ ___ ___ ___ ___ _____ 
+| _ \ _ \ __| __| __/ __|_   _| 
+|  _/   / _|| _|| _| (__  | |  
+|_| |_|_\___|_| |___\___| |_|  
+
+Configure Prefect to communicate with the server with:
+
+    prefect config set PREFECT_API_URL=http://127.0.0.1:4200/api
+
+View the API reference documentation at http://127.0.0.1:4200/docs
+
+Check out the dashboard at http://127.0.0.1:4200
+```
+
+Open another terminal window and run the following commands to set the Prefect API URL.
 
 ```bash
-$ cd mlops-zoomcamp-project
 $ conda activate mlops-project
 $ prefect config set PREFECT_API_URL=http://localhost:4200/api
 ```
 
-Then, open the Prefect Orion UI on http://127.0.0.1:4200/.
+You should see this.
+
+```txt
+Set 'PREFECT_API_URL' to 'http://127.0.0.1:4200/api'.
+Updated profile 'default'.
+```
+
+Open the Prefect Dashboard at http://127.0.0.1:4200.
+
+You should see this.
+
+TODO
 
 6. Start MLflow UI.
 
@@ -176,11 +171,15 @@ Then, open the MLflow UI on http://127.0.0.1:5000/.
 
 7. Train the model.
 
-In fact, this step will download the data from Kaggle, feature enginerring it, prepare the datasets,
-train the model with multiple hyperparameter combinations, 
-re-train the model with the best hyperparameters, 
-register the model into MLFlow staging area.
-All off this is orchestrated with Prefect.
+This step involves the following tasks:
+
+* Downloading the data from Kaggle.
+* Performing feature engineering on the data.
+* Preparing the datasets for training.
+* Training the model using multiple hyperparameter combinations.
+* Re-training the model using the best hyperparameters.
+* Registering the model in the MLFlow staging area.
+* All of these tasks are orchestrated using Prefect.
 
 In another terminal, run the following commands.
 
@@ -391,7 +390,7 @@ to the `~/mlops-zoomcamp-project` in the VS Code connected to the instance.
 Or just run the following command after changing the **Public IPv4 DNS** (mine is `ec2-3-99-132-220.ca-central-1.compute.amazonaws.com`).
 
 ```bash
-$ scp -i ~/.ssh/razer.pem ~/downloads/kaggle.json ubuntu@ec2-3-99-132-220.ca-central-1.compute.amazonaws.com:~/mlops-zoomcamp-project
+scp -i ~/.ssh/razer.pem ~/downloads/kaggle.json ubuntu@ec2-3-99-132-220.ca-central-1.compute.amazonaws.com:~/mlops-zoomcamp-project
 ```
 
 # Je suis rendu ici...
@@ -414,10 +413,10 @@ aws ec2 create-key-pair --region eu-central-1 --key-name mlops --query 'KeyMater
 
 
 ```bash
-$ pip install -U pip --upgrade pip
-$ pip install pipenv
-$ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
-$ cd mlops-zoomcamp-project
+pip install -U pip --upgrade pip
+pip install pipenv
+git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+cd mlops-zoomcamp-project
 ```
 
 Install from Pipfile and activate the Pipenv shell:
@@ -432,8 +431,8 @@ Python 3.9.17
 Connect the environment to a kernel and start jupyter:
 
 ```bash
-$ python -m ipykernel install --user --display-name pipenv_test --name pipenv_test
-$ jupyter notebook
+python -m ipykernel install --user --display-name pipenv_test --name pipenv_test
+jupyter notebook
 ```
 
 ## License
