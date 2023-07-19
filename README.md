@@ -65,16 +65,16 @@ and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw
 
 **Note**: I have tested the codes on M1 MacBook Pro. It can certainly be run on Linux and Windows with small modifications.
 
-**1. Clone the repository, and navigate to the downloaded folder**
+**1. Clone the repository**
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamp-project
 ```
 
-**2. Create and activate a new environment named `mlops-project` with Python 3.9** 
+**2. Create and activate a new environment**
 
-Run these commands. If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
+If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
 
 ```bash
 $ conda create -n mlops-project python=3.9
@@ -97,7 +97,7 @@ $ conda config --env --set subdir osx-64
 
 You can proceed to the next steps as normal.
 
-3. Install requirements for the environment.
+**3. Install requirements**
 
 Install all package dependencies with this command.
 
@@ -105,7 +105,7 @@ Install all package dependencies with this command.
 $ pip install -r requirements.txt
 ```
 
-4. Authenticate with Kaggle using `kaggle.json`.
+**4. Authentication to use the Kaggle's public API**
 
 The `kaggle.json` file is typically used to authenticate API requests to the Kaggle service. 
 It contains the necessary credentials for the Kaggle API, allowing you to interact with Kaggle datasets, competitions, and other 
@@ -118,7 +118,7 @@ Move the `kaggle.json` file to one of these folders: `~/downloads/kaggle.json`, 
 
 The script code will look for the `kaggle.json` file to set the environment variables.
 
-5. Start Prefect.
+**5. Start Prefect**
 
 Start a local Prefect server by running the following.
 
@@ -161,7 +161,7 @@ Open the Prefect Dashboard at http://127.0.0.1:4200. You should see this.
 
 ![s11](images/s11.png)
 
-6. Start MLflow UI.
+**6. Start MLflow UI**
 
 ```bash
 $ mlflow ui --backend-store-uri sqlite:///mlflow.db
@@ -171,7 +171,7 @@ Then, open the MLflow UI on http://127.0.0.1:5000/. You should see this.
 
 ![s12](images/s12.png)
 
-7. Train the model.
+**7. Train the model**
 
 In another terminal, run the following commands.
 
@@ -209,10 +209,7 @@ You should see something like this.
     </tr>
 </table>
 
-
-
-
-8. Test the model.
+**8. Test**
 
 ```bash 
 $ make test
@@ -220,7 +217,7 @@ $ make test
 
 TODO
 
-9. Deploy the model to production
+**9. Deploy the model**
 
 ```bash
 $ make deploy 
