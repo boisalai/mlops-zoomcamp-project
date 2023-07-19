@@ -2,7 +2,6 @@
 <h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
 
 ![](images/banner.png)
-<img alt="any text you like" src="https://img.shields.io/badge/any%20text-you%20like-blue">
 
 <img alt="any text you like" src="https://img.shields.io/badge/python-3.9-blue">
 <img alt="any text you like" src="https://img.shields.io/badge/code%20style-black-black">
@@ -11,18 +10,32 @@
 </a>
 
 
-[TLDR](#TLDR) | [Problem](#Problem) | [Instructions](#Instructions) | [Best%20practices](#Best%20practices) [License](#License) | [Acknowledgments](#Acknowledgments)
-
-
+[Problem](#problem-statement) | [Architecture](#Architecture) | [Instructions](#Instructions) | [Best practices](#Best%20practices) | [License](#License) | [Acknowledgments](#Acknowledgments)
 
 </div>
 
+## Problem Statement
 
-## TLDR
+This project is the capstone associated with [MLOps Zoomcamp](https://github.com/DataTalksClub/mlops-zoomcamp), and it will undergo peer review and scoring.
 
-## Problem
+The ultimate objective of this project is to create an end-to-end machine learning solution encompassing feature engineering, 
+training, validation, tracking, model deployment, hosting for production, and adhering to general engineering best practices. 
 
-## Architecture
+The problem at hand is to model the selling price of used cars based on the features given in the datasets. 
+It will be used by the client to predict the price of a car of their choice. 
+
+## Dataset
+
+I used [Kaggle's used car data set](https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data) 
+because it had a variety of categorical and numerical data and allows you to explore different ways of dealing
+with missing data. I divided out my project into three parts:
+
+https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
+
+
+## Design & flow architecture
+
+The architecture below depicts the system design:
 
 ## Instructions
 
@@ -402,3 +415,10 @@ The code and checkpoints are licensed under [MIT License](https://opensource.org
 
 ## Acknowledgments
 
+I am deeply grateful for the effort this fantastic group of individuals has invested in ensuring our understanding of the different facets of MLOps.
+
+* Alexey Grigorev
+Kevin Kho
+Ankush Khanna
+Sejal Vaidya
+Victoria Perez Mola
