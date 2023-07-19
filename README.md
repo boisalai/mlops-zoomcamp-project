@@ -5,7 +5,7 @@
 
 <img alt="any text you like" src="https://img.shields.io/badge/python-3.9-blue">
 <img alt="any text you like" src="https://img.shields.io/badge/code%20style-black-black">
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<img alt="any text you like" src="https://img.shields.io/badge/License-MIT-yellow">
 
 [Problem](#problem-statement) | [Architecture](#Architecture) | [Instructions](#Instructions) | [Best practices](#Best%20practices) | [License](#License) | [Acknowledgments](#Acknowledgments)
 
