@@ -32,6 +32,7 @@ venv.bak/
 
 # Terraform
 # Local .terraform directories
+**/.terraform.lock.hcl
 **/.terraform/*
 
 # .tfstate files

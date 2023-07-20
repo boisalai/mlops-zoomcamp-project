@@ -401,7 +401,7 @@ Add the following bucket policy:
 ```
 
 Make sure to replace `<your_user_arn>` and `<your_bucket_arn>` with the appropriate values. 
-You can get your user arn from the command line by running `aws sts get-caller-identity`. See above.
+You can get your **user arn** from the command line by running `aws sts get-caller-identity`. See above.
 
 Your **Bucket ARN** can be found in the **Properties** tab of the S3 bucket.
 
@@ -437,12 +437,21 @@ You should see this.
 For explanation on initializing Terraform configuration,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 27:06 and 29:00.
 
-The next step that we will run is a `terraform plan`` command.
+The next step that we will run is a `terraform plan` command.
 
 ```bash
-terraform plan
+terraform plan -var-file=vars/stg.tfvars
 ```
 
+For more explanation on `terraform plan`,
+see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 29:00 and 31:30.
+
+```bash
+terraform apply
+```
+
+For more explanation on `terraform apply`,
+see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 31:30 and 34:26.
 
 ### Step 2: Create a new instance
 
