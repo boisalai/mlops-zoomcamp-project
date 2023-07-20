@@ -55,9 +55,9 @@ To complete
 
 ## Instructions
 
-For those who don't want to replicate the project in AWS, I've added a section to run part of the project on your local machine.
+For those who don't want to replicate the project in AWS (Option 2), I've added a section to run part of the project on your local machine (Option 1).
 
-### Setting up for local environment
+### Option 1: Setting up for local environment
 
 I assume Anaconda, Docker, Docker-Compose, Git and Make are already installed. Otherwise, see
 [here](https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/01-intro/README.md#12-environment-preparation)
@@ -65,14 +65,14 @@ and [here](https://www.youtube.com/watch?v=F6DZdvbRZQQ&list=PL3MmuxUbc_hIUISrluw
 
 **Note**: I have tested the codes on M1 MacBook Pro. It can certainly be run on Linux and Windows with small modifications.
 
-**1. Clone the repository**
+#### Step 1: Clone the repository
 
 ```bash
 $ git clone https://github.com/boisalai/mlops-zoomcamp-project.git
 $ cd mlops-zoomcamp-project
 ```
 
-**2. Create and activate a new environment**
+#### Step 2: Create and activate a new environment
 
 If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
 
@@ -97,7 +97,7 @@ $ conda config --env --set subdir osx-64
 
 You can proceed to the next steps as normal.
 
-**3. Install requirements**
+#### Step 3: Install requirements
 
 Install all package dependencies with this command.
 
@@ -105,7 +105,7 @@ Install all package dependencies with this command.
 $ pip install -r requirements.txt
 ```
 
-**4. Authentication to use the Kaggle's public API**
+#### Step 4: Authentication to use the Kaggle's public API
 
 The `kaggle.json` file is typically used to authenticate API requests to the Kaggle service. 
 It contains the necessary credentials for the Kaggle API, allowing you to interact with Kaggle datasets, competitions, and other 
@@ -118,7 +118,7 @@ Move the `kaggle.json` file to one of these folders: `~/downloads/kaggle.json`, 
 
 The script code will look for the `kaggle.json` file to set the environment variables.
 
-**5. Start Prefect**
+#### Step 5: Start Prefect
 
 Start a local Prefect server by running the following.
 
@@ -161,7 +161,7 @@ Open the Prefect Dashboard at http://127.0.0.1:4200. You should see this.
 
 ![s11](images/s11.png)
 
-**6. Start MLflow UI**
+#### Step 6: Start MLflow UI
 
 ```bash
 $ mlflow ui --backend-store-uri sqlite:///mlflow.db
@@ -171,7 +171,7 @@ Then, open the MLflow UI on http://127.0.0.1:5000/. You should see this.
 
 ![s12](images/s12.png)
 
-**7. Train the model**
+#### Step 7: Train the model
 
 In another terminal, run the following commands.
 
@@ -209,7 +209,7 @@ You should see something like this.
     </tr>
 </table>
 
-**8. Test**
+#### Step 8: Test
 
 ```bash 
 $ make test
@@ -217,7 +217,7 @@ $ make test
 
 TODO
 
-**9. Deploy the model**
+#### Step 9: Deploy the model
 
 ```bash
 $ make deploy 
@@ -225,11 +225,11 @@ $ make deploy
 
 TODO
 
-### Setting up for AWS cloud environment
+### Option 2: Setting up for AWS cloud environment
 
 Follow the steps 1 to 7 below.
 
-**1: Create an AWS Account**
+#### Step 1: Create an AWS Account
 
 Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
@@ -261,6 +261,19 @@ Select **Command Line interface (CLI)**, check confirmation below, click **Next*
 Take note of your **Access key** and **Secret access key**.
 
 <table>
+<tr>
+<td>
+**Note**
+
+Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost it you cannot recover (or) re-download it.  You would have to create a new API key.
+
+The best practice is to keep changing the API Access Key and recreating it. The older your API keys are the prone they 
+are to Malicious attacks. So you should keep updating the API key and should not use the Same API key for a long period of time.
+</td>
+</tr>
+</table>
+
+<table>
     <tr>
         <td>
             <img src="images/s20.png">
@@ -274,10 +287,13 @@ Take note of your **Access key** and **Secret access key**.
     </tr>
 </table>
 
+**Note**: Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost 
+it you cannot recover (or) re-download it.  You would have to create a new API key.
+
 If you have difficulties to create your secret key,
 see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 1:37 and 2:46.
 
-**2. Install and configure aws-cli**
+#### Step 2: Install and configure aws-cli
 
 Download and install [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 as a tool to use on your terminal.
@@ -317,7 +333,7 @@ Write down your **Arn**, you will need it later to configure your AWS S3 bucket.
 If you have difficulties to configure `aws-cli`,
 see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 3:48 and 4:07.
 
-**3. Install Terraform**
+#### Step 3: Install Terraform
 
 See [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) to install Terraform on macOS, Windows or Linux.
 
@@ -344,9 +360,14 @@ Terraform v1.5.3
 on darwin_arm64
 ```
 
-**4. Create S3 Bucket**
+<!--
+Dois-je exporter mes variables d'environement?
+https://registry.terraform.io/providers/-/aws/latest/docs#environment-variables
+-->
 
-Before running Terraform, we need to create a bucket manually.
+#### Step 4: Create S3 Bucket**
+
+Before running Terraform, we need to create an S3 bucket manually because Terraform won't create an S3 bucket for us automatically.
 
 Log in to your [AWS Console](https://aws.amazon.com/console/), then go to **S3** section. 
 I suppose you don't have any S3 Buckets available. In order to create an S3 bucket, we will click on **Create bucket**.
@@ -364,10 +385,8 @@ Enter `tf-state-mlops-zoomcamp` as **Bucket name** and click on **Create bucket*
     </tr>
 </table>
 
-
 If you have difficulties to create AWS S3 Bucket,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 5:17 and 7:40.
-
 
 Now, click on the newly created bucket, select the **Permissions** tab, and click on **Edit** under **Bucket policy** section.
 
@@ -452,6 +471,15 @@ terraform apply
 
 For more explanation on `terraform apply`,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 31:30 and 34:26.
+
+If we no longer require resources that we have created using the configuration
+mentioned in the `main.tf` file, we can use the `terraform destroy` command
+to delete all those resources.
+
+```bash
+terraform destroy
+```
+
 
 ### Step 2: Create a new instance
 
