@@ -260,18 +260,10 @@ Click on **Security credentials** tab, and click on **Create access key** button
 Select **Command Line interface (CLI)**, check confirmation below, click **Next**, than click on **Create access key** button.
 Take note of your **Access key** and **Secret access key**.
 
-<table>
-<tr>
-<td>
-**Note**
-
-Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost it you cannot recover (or) re-download it.  You would have to create a new API key.
-
-The best practice is to keep changing the API Access Key and recreating it. The older your API keys are the prone they 
+**Note**: Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost it you
+cannot recover (or) re-download it.  You would have to create a new API key. The best practice is to keep changing the API Access Key and
+recreating it. The older your API keys are the prone they
 are to Malicious attacks. So you should keep updating the API key and should not use the Same API key for a long period of time.
-</td>
-</tr>
-</table>
 
 <table>
     <tr>
