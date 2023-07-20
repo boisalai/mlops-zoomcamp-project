@@ -251,12 +251,9 @@ Select `mlops-project-user`.
             <img src="images/s18.png">
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <img src="images/s19.png">
-        </td>
-    </tr>
 </table>
+
+![s19](images/s19.png)
 
 Click on **Security credentials** tab, and click on **Create access key** button.
 Select **Command Line interface (CLI)**, check confirmation below, click **Next**, than click on **Create access key** button.
@@ -270,11 +267,11 @@ Take note of your **Access key** and **Secret access key**.
         <td>
             <img src="images/s21.png">
         </td>
-        <td>
-            <img src="images/s22.png">
-        </td>
     </tr>
 </table>
+
+![s22](images/s22.png)
+
 
 **Note**: Once the Access Key ID and Secret Access Key are created, you can download and save them in a safe place and
 if you lost them, you cannot recover (or) download them again. You will need to create a new API key. The best practice
