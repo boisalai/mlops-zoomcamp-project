@@ -250,7 +250,9 @@ Select `mlops-project-user`.
         <td>
             <img src="images/s18.png">
         </td>
-        <td>
+    </tr>
+    <tr>
+        <td colspan="2">
             <img src="images/s19.png">
         </td>
     </tr>
@@ -259,11 +261,6 @@ Select `mlops-project-user`.
 Click on **Security credentials** tab, and click on **Create access key** button.
 Select **Command Line interface (CLI)**, check confirmation below, click **Next**, than click on **Create access key** button.
 Take note of your **Access key** and **Secret access key**.
-
-**Note**: Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost it you
-cannot recover (or) re-download it.  You would have to create a new API key. The best practice is to keep changing the API Access Key and
-recreating it. The older your API keys are the prone they
-are to Malicious attacks. So you should keep updating the API key and should not use the Same API key for a long period of time.
 
 <table>
     <tr>
@@ -279,8 +276,22 @@ are to Malicious attacks. So you should keep updating the API key and should not
     </tr>
 </table>
 
-**Note**: Once the Access Key ID and Secret Access Key is created you can download and save them somewhere safe and if you lost 
-it you cannot recover (or) re-download it.  You would have to create a new API key.
+**Note**: Once the Access Key ID and Secret Access Key are created, you can download and save them in a safe place and
+if you lost them, you cannot recover (or) download them again. You will need to create a new API key. The best practice
+is to keep changing the API access key and recreating it. The older your API keys are, the more prone they are to malicious
+attacks. So you should keep updating the API key and don't use the same API key for a long time.
+
+
+<!--
+Est-ce nécessaire considérant que aws-cli sera configuré?
+In your terminal, run these commands with your Access and Secret key.
+
+```bash
+export AWS_ACCESS_KEY_ID=AK************IEVXQ
+export AWS_SECRET_ACCESS_KEY=gbaIbK*********************iwN0dGfS
+```
+-->
+
 
 If you have difficulties to create your secret key,
 see this [video](https://www.youtube.com/watch?v=zRcLgT7Qnio&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=49) between 1:37 and 2:46.
@@ -357,7 +368,7 @@ Dois-je exporter mes variables d'environement?
 https://registry.terraform.io/providers/-/aws/latest/docs#environment-variables
 -->
 
-#### Step 4: Create S3 Bucket**
+#### Step 4: Create S3 Bucket
 
 Before running Terraform, we need to create an S3 bucket manually because Terraform won't create an S3 bucket for us automatically.
 
@@ -426,13 +437,21 @@ Click on **Save changes** button.
 
 See [Configure S3 bucket as Terraform backend, Step-by-Step](https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/) for more information.
 
-**5. Configure and run Terraform**
+#### Step 5: Configure and run Terraform**
 
 You need to change the region for your default region (mine is `ca-central-1`) in the following files:
 
 * `infrastructure/main.tf`, at line 7.
 * `infrastructure/variables.tf`, at line 3.
 * `infrastructure/modules/ecr/variables.tf`, at line 25.
+
+As Ubuntu cloud images are uploaded and registered on the Amazon EC2 cloud, they are referred to as AMI (Amazon Machine Images). 
+Each AMI is a machine template from which you can instantiate new servers. Each AMI has its own unique ID. In order to launch an 
+instance on the EC2 cloud, you first need to locate its ID.
+This [page](http://cloud-images.ubuntu.com/locator/ec2/) helps you quickly locate an AMI ID.
+Change `ami`.
+
+![s28](images/s28.png)
 
 Next, run the `terraform init` command to initialize a working directory containing Terraform configuration files.
 
@@ -448,7 +467,7 @@ You should see this.
 For explanation on initializing Terraform configuration,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 27:06 and 29:00.
 
-The next step that we will run is a `terraform plan` command.
+Execute the command `terraform plan` to check what change would be made (you should always do it).
 
 ```bash
 terraform plan -var-file=vars/stg.tfvars
@@ -456,6 +475,8 @@ terraform plan -var-file=vars/stg.tfvars
 
 For more explanation on `terraform plan`,
 see this [video](https://www.youtube.com/watch?v=-6scXrFcPNk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=53) between 29:00 and 31:30.
+
+If you are happy with the changes it is claiming to make, then execute `terraform apply` to commit and start the build.
 
 ```bash
 terraform apply

@@ -1,22 +1,32 @@
 # Make sure to create state bucket beforehand
 terraform {
-  required_version = ">= 1.0"
-  backend "s3" {
-    bucket  = "tf-state-mlops-zoomcamp"
-    key     = "mlops-zoomcamp-stg.tfstate"
-    region  = "ca-central-1"
-    encrypt = true
-  }
+    required_version = ">= 1.0"
+    backend "s3" {
+        bucket  = "tf-state-mlops-zoomcamp"
+        key     = "mlops-zoomcamp-stg.tfstate"
+        region  = "ca-central-1"
+        encrypt = true
+    }
 }
 
 provider "aws" {
-  region = var.aws_region
+    # access_key = "${var.access_key}"
+    # secret_key = "${var.secret_key}"
+    region = var.aws_region
 }
 
 data "aws_caller_identity" "current_identity" {}
 
 locals {
-  account_id = data.aws_caller_identity.current_identity.account_id
+    account_id = data.aws_caller_identity.current_identity.account_id
+}
+
+resource "aws_instance" "mlops-zoomcamp" {
+    ami           = var.ami_id
+    instance_type = var.instance_type
+    tags = {
+        Name = "tf-example"
+    }
 }
 
 /*
