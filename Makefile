@@ -36,11 +36,18 @@ init-macos:
 	sudo usermod -aG docker ${USER}
 
 init-ubuntu:
-	# echo "Install Anaconda"
-	# rm -rf /home/ubuntu/miniconda3
-	# wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
-	# bash Anaconda3-2022.05-Linux-x86_64.sh -b -p
-	# rm Anaconda3-2022.05-Linux-x86_64.sh
+	echo "Install Anaconda"
+	wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+	bash Anaconda3-2022.05-Linux-x86_64.sh -b -p -f
+	rm Anaconda3-2022.05-Linux-x86_64.sh
+
+	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+	bash ~/miniconda.sh -b -p $HOME/miniconda
+	source "$HOME/miniconda/etc/profile.d/conda.sh"
+	conda config --set always_yes yes --set changeps1 no
+	conda update -q conda
+	# Useful for debugging any issues with conda
+	conda info -a
 
 	echo "Install Docker"
 	sudo apt install docker.io

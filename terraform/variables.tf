@@ -1,32 +1,31 @@
-
-/*
-variable "access_key" {
-    description = "Access key to AWS console"
-}
-
-variable "secret_key" {
-    description = "Secret key to AWS console"
-}
-*/
-
 variable "aws_region" {
-    description = "AWS region to create resources"
-    default     = "ca-central-1"
+  description = "AWS region to create resources"
+  default     = "ca-central-1"
 }
 
 variable "project_id" {
-    description = "project_id"
-    default = "mlops-zoomcamp"
+  description = "project_id"
+  default     = "mlops-zoomcamp"
 }
 
-variable "instance_name" {
-    description = "Name of the instance to be created"
-    default = "mlops-zoomcamp"
+variable "instance_profile_name" {
+  type    = string
+  default = "my-instance-profile"
 }
 
-variable "instance_type" {
-    # default = "t2.xlarge"
-    default = "t2.micro"
+variable "iam_policy_name" {
+  type    = string
+  default = "my-iam-policy"
+}
+
+variable "role_name" {
+  type    = string
+  default = "my-role"
+}
+
+variable "model_bucket" {
+  description = "s3_bucket"
+  default     = "mlflow-models-code-owners"
 }
 
 /*
@@ -35,11 +34,6 @@ variable "subnet_id" {
     default = "subnet-07ebbe60"
 }
 */
-
-variable "ami_id" {
-    description = "The AMI to use"
-    default = "ami-04086f7789b5bc3b7"
-}
 
 /*
 variable "number_of_instances" {
@@ -64,10 +58,6 @@ variable "output_stream_name" {
   description = ""
 }
 */
-
-variable "model_bucket" {
-    description = "s3_bucket"
-}
 
 /*
 variable "lambda_function_local_path" {

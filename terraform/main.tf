@@ -1,32 +1,98 @@
 # Make sure to create state bucket beforehand
 terraform {
-    required_version = ">= 1.0"
-    backend "s3" {
-        bucket  = "tf-state-mlops-zoomcamp"
-        key     = "mlops-zoomcamp-stg.tfstate"
-        region  = "ca-central-1"
-        encrypt = true
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
     }
+  }
+
+  required_version = ">= 1.2.0"
+
+  backend "s3" {
+    bucket  = "tf-state-mlops-zoomcamp"
+    key     = "mlops-zoomcamp-stg.tfstate"
+    region  = "ca-central-1"
+    encrypt = true
+  }
 }
 
 provider "aws" {
-    # access_key = "${var.access_key}"
-    # secret_key = "${var.secret_key}"
-    region = var.aws_region
+  # access_key = var.access_key"AKIATI4DXUWBLW3F3WHH"
+  # secret_key = var.secret_key"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"
+  region = var.aws_region
 }
 
 data "aws_caller_identity" "current_identity" {}
 
 locals {
-    account_id = data.aws_caller_identity.current_identity.account_id
+  account_id = data.aws_caller_identity.current_identity.account_id
 }
 
-resource "aws_instance" "mlops-zoomcamp" {
-    ami           = var.ami_id
-    instance_type = var.instance_type
-    tags = {
-        Name = "tf-example"
-    }
+
+/*
+# Create an IAM policy.
+# See https://devopscube.com/terraform-iam-role/
+resource "aws_iam_policy" "zoomcamp_iam_policy" {
+    name = var.iam_policy_name
+    policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+            {
+                Effect = "Allow"
+                Action = [
+                    "iam:CreatePolicy",
+                    "iam:CreateRole",
+                    "iam:PutRolePolicy",
+                    "iam:AttachRolePolicy",
+                    "iam:DetachRolePolicy",
+                    "ec2:RunInstances",
+                    "iam:PassRole",
+                ]
+                Resource = "arn:aws:iam::225225188738:role/Get-pics"
+            }
+        ]
+    })
+}
+
+# Create an IAM role.
+# See https://devopscube.com/terraform-iam-role/
+resource "aws_iam_role" "zoomcamp_role" {
+    name = var.role_name
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+            {
+                Effect = "Allow"
+                Principal = {
+                    Service = "ec2.amazonaws.com"
+                }
+                Action = "sts:AssumeRole"
+            }
+        ]
+    })
+}
+
+# Attach the IAM policy to the IAM role.
+# # See https://devopscube.com/terraform-iam-role/
+resource "aws_iam_policy_attachment" "zoomcamp_role_policy_attachment" {
+    name = "Policy Attachement"
+    roles      = [aws_iam_role.zoomcamp_role.name]
+    policy_arn = aws_iam_policy.zoomcamp_iam_policy.arn
+}
+
+# Create an IAM instance profile.
+# See https://devopscube.com/terraform-iam-role/
+resource "aws_iam_instance_profile" "zoomcamp_instance_profile" {
+    name = var.instance_profile_name
+    role = aws_iam_role.zoomcamp_role.name
+}
+*/
+
+# Attach the IAM instance profile to the EC2 instance.
+module "zoomcamp_ec2" {
+  source = "./modules/ec2"
+  # instance_profile_name = var.instance_profile_name
 }
 
 /*
@@ -49,11 +115,13 @@ module "output_kinesis_stream" {
 }
 */
 
+/*
 # model bucket
 module "s3_bucket" {
   source = "./modules/s3"
   bucket_name = "${var.model_bucket}-${var.project_id}"
 }
+*/
 
 /*
 # image registry
@@ -82,9 +150,11 @@ output "lambda_function" {
 }
 */
 
+/*
 output "model_bucket" {
   value = module.s3_bucket.name
 }
+*/
 
 /*
 output "predictions_stream_name" {
