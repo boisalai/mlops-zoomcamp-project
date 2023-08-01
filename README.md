@@ -287,7 +287,7 @@ You should see this.
 
 We are now connected to the remote service.
 
-<!-->
+<!--
 Enter `logout` to close the connection.
 
 ```bash
@@ -506,7 +506,7 @@ Copy and paste one of the URLs (I have http://localhost:8888/?token=c8de56fa...)
 you should see that Jupyter notebook is alive.
 
 ![s10](images/s10.png)
--->
+
 
 
 ### Step 9: Create a config file
