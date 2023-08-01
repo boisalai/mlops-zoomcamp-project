@@ -1,4 +1,3 @@
-
 > [!WARNING]  
 > This project is in progress and not yet finished.
 
@@ -58,24 +57,50 @@ Here's a breakdown of the dataset's structure:
 
 The architecture below depicts the system design:
 
-TODO
+> Section to complete.
+
+## Repository Organization
+
+Our repository organization is shown below. 
+
+- The `notebooks` folder contains ...
+- The `infrastructure` folder contains ...
+- The `eval` folder contains all ...
+- The `inference` folder contains ...
+  - <span style="color:hr">[Coming Soon!]</span>  The `train` folder contains all the training code associated with Gorilla finetuning.
+
+
+
+```
+mlops-zoomcamp-project
+├── terraform
+│   ├── modules 
+│   │   ├── ec2
+
+```
+
+<!--
+See https://raw.githubusercontent.com/ShishirPatil/gorilla/main/README.md
+-->
 
 ## Instructions
 
-Here are the instructions for executing the code on AWS.
+Here are the instructions for setting up an AWS EC2 instance and executing the code on this.
 
 ### Step 1: Create an AWS Account
 
 Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
 
-Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, click on **Users**.
+### Step 2: Create a user
+
+Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, click on the number under **Users**.
 
 ![s16](images/s16.png)
 
 Click on **Add users** button, enter `mlops-zoomcamp` as **User name**, click on **Next** button.
 Click on **Next** button again, then on the **Create user** button.
-Select `mlops-zoomcamp`.
+Select `mlops-zoomcamp` user.
 
 <table>
     <tr>
@@ -90,8 +115,16 @@ Select `mlops-zoomcamp`.
 
 ![s19](images/s19.png)
 
+Click on **Permissions** tab and on **Add permissions** button.
+Select **Attach policies directly**.
+Search and select for **AdministrasorAccess** 
+then click on **Next** button, then on **Add permissions** button.
+
+### Step 3: Create AWS credentials
+
+Select `mlops-zoomcamp` user.
 Click on **Security credentials** tab, and click on **Create access key** button.
-Select **Command Line interface (CLI)**, check confirmation below, click **Next**, than click on **Create access key** button.
+Select **Command Line interface (CLI)**, check confirmation below, click **Next**, then click on **Create access key** button.
 
 <table>
     <tr>
@@ -106,15 +139,68 @@ Select **Command Line interface (CLI)**, check confirmation below, click **Next*
 
 ![s22](images/s22.png)
 
-Write down your **Access key** and **Secret access key**, you will need it later.
+Write down your **Access key** and **Secret access key**.
 Keep them in a safe place.
 If you lost them, you cannot recover (or) download them again. You will need to create a new API key.
 
-### Step 2: Create key pair
+<!--
+On your local mahine, set up 
+the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables with 
+the appropriate access keys
+previously obtained.
 
-Use the [create-key-pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) 
-command as follows to generate the key pair and to save the private key to a `.pem` file.
-Then change the permissions to protect the file against the accidental overwriting, removing, renaming or moving files.
+```bash
+export AWS_ACCESS_KEY_ID="xxxxxxxxxxxxxxxxxxxx"
+export AWS_SECRET_ACCESS_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+-->
+
+### Step 4: Install and configure AWS CLI
+
+Since we will be working with AWS to provision our infrastructure using Terraform, 
+we also need to install 
+[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). 
+Follow the steps listed here, to install the 
+latest version of AWS CLI for your OS.
+
+Check installation.
+
+```bash
+$ which aws
+/usr/local/bin/aws
+$ aws --version
+aws-cli/2.13.0 Python/3.11.4 Darwin/22.5.0 exe/x86_64 prompt/off
+```
+
+Configure `aws-cli` with your AWS **Access key** and **Secret access key**.
+
+```bash
+$ aws configure
+AWS Access Key ID [None]: xxxxxxxxxxxxxxxxxxxx
+AWS Secret Access Key [None]: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Default region name [ca-central-1]: 
+Default output format [None]:
+```
+
+Verify aws config.
+
+```bash
+$ aws sts get-caller-identity
+{
+    "UserId": "xxxxxxxxxxxxxxxxxxxxx",
+    "Account": "xxxxxxxxxxxx",
+    "Arn": "arn:aws:iam::xxxxxxxxxxxx:user/mlops-zoomcamp"
+}
+```
+
+Write down your **Arn**, you will need it later to configure your AWS S3 bucket.
+
+### Step 5: Create key pair using Amazon EC2
+
+Create a key pair using Amazon EC2. Run this command
+to generate the key pair and to save the private key to a `.pem` file.
+Then change the permissions to protect the file against the accidental 
+overwriting, removing, renaming or moving files.
 
 ```bash
 aws ec2 create-key-pair \
@@ -126,10 +212,14 @@ aws ec2 create-key-pair \
 chmod 400 ~/.ssh/razer.pem
 ```
 
-See [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html) more information
-about Amazon EC2 key pairs.
+> [!NOTE]  
+> If you get an error, you can decode the encoded AWS error message with the following commands.
+> `aws sts decode-authorization-message --encoded-message`
+> See [decode-authorization-message](https://docs.aws.amazon.com/cli/latest/reference/sts/decode-authorization-message.html).
 
-### Step 3: Create a conda environment
+
+<!--
+### Step 5: Create a conda environment
 
 Create and activate a new environment on your local machine.
 
@@ -138,58 +228,31 @@ conda create -n mlops-zoomcamp python=3.9
 conda activate mlops-zoomcamp
 ```
 
-If prompted to proceed with the installation (Proceed ([y]/n)?), type y.
+If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
+-->
 
-### Step 4: Install and configure aws-cli
+### Step 6: Install Terraform CLI
 
-Download and install [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-as a tool to use on your terminal.
+Download and install Terraform CLI from the [official website](https://www.terraform.io/downloads.html).
 
-Check installation.
-
-```bash
-$ which aws
-/usr/local/bin/aws
-$ aws --version
-aws-cli/2.13.0 Python/3.11.4 Darwin/22.5.0 exe/x86_64 prompt/off
-```
-
-Configure `aws-cli` with your AWS secret keys.
+To install Terraform on macOS, run this command.
 
 ```bash
-$ aws configure
-AWS Access Key ID [None]: xxx
-AWS Secret Access Key [None]: xxx
-Default region name [ca-central-1]: 
-Default output format [None]:
-```
-
-Verify aws config.
-
-```bash
-$ aws sts get-caller-identity
-{
-    "UserId": "AIDATI4DXUWBELI552XQJ",
-    "Account": "225225188738",
-    "Arn": "arn:aws:iam::225225188738:user/mlops-zoomcamp"
-}
-```
-
-Write down your **Arn**, you will need it later to configure your AWS S3 bucket.
-
-### Step 5: Install Terraform
-
-Download and install Terraform from the [official website](https://www.terraform.io/downloads.html).
-
-After installation, verify that Terraform is accessible by running `terraform --version` in your terminal.
-
-```bash
+$ brew install terraform
 $ terraform --version
-Terraform v1.5.3
+Terraform v1.5.4
 on darwin_arm64
 ```
 
-### Step 6: Modify Terraform Configuration
+### Step 7: Clone repository
+
+Clone this [repository](https://github.com/boisalai/mlops-zoomcamp-project.git).
+
+```bash
+git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+```
+
+### Step 8: Modify Terraform setting
 
 Some changes should be made in the Terreform files.
 
@@ -208,16 +271,84 @@ Copy the **AMI-ID** and paste it to the `ami_id` variable in `infrastructure/mod
 
 ![s28](images/s28.png)
 
-Next, You'll need AWS access keys to allow Terraform to communicate with your AWS account. 
-Make sure you have set up the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables with the appropriate access keys
-previously obtained.
+If you don't know your public IP address, open a browser and type into your browser's address space, "what is my IP address" 
+the browser will then show your public IP address. Change the variable setting to "your IP address with a /32" subnet mask 
+(i.e. "1.2.3.4/32").
+
+
+https://josephomara.com/tag/terraform-using-security-group-as-an-ingress-rule/
+
+### Step 9: Create AWS resources
+
+Format your Terraform configuration files using the HCL language
+standard, including files in subdirectories.
 
 ```bash
-export AWS_ACCESS_KEY_ID="AKIAxxxxxxxxxxxx3WHH"
-export AWS_SECRET_ACCESS_KEY="wmS0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxDVsg"
+cd mlops-zoomcamp-project
+cd infrastructure
+terraform fmt -recursive
 ```
 
-### Step 7: Create S3 Bucket
+Run the `terraform init` to install the necessary provider modules, in this case, to support AWS provisioning.
+
+```bash
+cd infrastructure
+terraform init
+```
+
+You should see this.
+
+![s27](images/s27.png)
+
+Run `terraform validate` to validate the AWS provisioning code.
+
+```bash
+terraform validate
+```
+
+Run `terraform plan` to check what change would be made (you should always do it).
+
+```bash
+terraform plan 
+```
+
+If you are ok with the plan summary, you can apply the configuration using the following command.
+Terraform will ask you if you want to perform these actions. Answer `yes`.
+
+```bash
+terraform apply
+```
+
+### Step 10: Connect to EC2 instance
+
+```bash
+ssh -i ~/.ssh/razer.pem ubuntu@3.96.63.58
+```
+
+### Step 11: Start Jupyter
+
+
+Avais-je vraiment besoin de sudo? et du ssh -i localhost:8888
+
+En tout cas, je sais que je dois ouvrir l'adresse
+http://127.0.0.1:8888/tree?token=10238b8ad9dfaf1651e9060fbe642d937deceaff32f68b81
+
+Quelqu'un dit...
+Make sure you type https://<jupyter-server-ip> in your browser instead of http://.
+
+```bash
+cd mlops-zoomcamp-project
+conda activate mlops-zoomcamp
+sudo chown -R ubuntu /home/
+sudo chown -R ubuntu ~/.local/share/jupyter/
+jupyter notebook
+```
+
+ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@3.96.63.58
+ssh -L localhost:8888:localhost:8888 ubuntu@3.96.63.58
+
+
+### Step 9999: Create S3 Bucket
 
 We need to create an S3 bucket manually because Terraform won't create an S3 bucket for us automatically.
 
@@ -316,97 +447,12 @@ Click on **Save changes** button.
 See [Configure S3 bucket as Terraform backend, Step-by-Step](https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/) for more information.
 -->
 
-### Step 8: Create AWS resources
-
-Format your Terraform configuration files using the HCL language
-standard, including files in subdirectories.
-
-```bash
-cd infrastructure
-terraform fmt -recursive
-```
-
-Run the `terraform init` command to initialize a working directory containing Terraform configuration files.
-
-```bash
-cd infrastructure
-terraform init
-```
-
-You should see this.
-
-![s27](images/s27.png)
-
-Execute the command `terraform plan` to check what change would be made (you should always do it).
-
-```bash
-terraform plan 
-```
-
-If you are ok with the plan summary, you can apply the configuration using the following command.
-Terraform will ask you if you want to perform these actions. Answer `yes`.
-
-```bash
-terraform apply
-```
 
 <!--
-
-![MLOps](images/s02.png)
-
-Choose **Instance type**: t2.xlarge.
-
-![MLOps](images/s03.png)
-
-Click on **Create new key pair** with:
-
-* **Key pair name**: razer
-* **Key pair type**: RSA
-* **Private key file format**: .pem
-
-![MLOps](images/s04.png)
-
-Click on **Create key pair** button, than move the downloaded `razer.pem`  file to the `~/.ssh` folder on your local machine.
-Than change the permissions to protect the file against the accidental overwriting, removing, renaming or moving files.
-
-```bash
-$ mv ~/downloads/razer.pem ~/.ssh
-$ chmod 400 ~/.ssh/razer.pem 
-```
-
-Increase **Configure storage** to 30 GiB.
-
-![MLOps](images/s05.png)
-
-Finally, click the **Launch instance** button.
-
-You should see something like this.
-
-![MLOps](images/s06.png)
-
-Take note of the **Public IPv4 address** (mine is `3.99.132.220`).
-
-### Step 3: Connect local machine to the EC2 instance
-
-Connect to this instance with the following commands.
-Don't forget to replace the public IP with your own (mine is `3.99.132.220`).
-
-```bash
-ssh -i ~/.ssh/razer.pem ubuntu@3.98.56.99
-ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@3.98.56.99
-ssh -L localhost:8888:localhost:8888 ubuntu@3.98.56.99
-http://localhost:8888/tree?token=a44fe4eaa87fb2bf23650e402aea60c0845f4409637f2dd6
-```
-
 
 
 Pour faire fonctionner Jupyter...
 https://saturncloud.io/blog/how-to-setup-jupyter-notebook-on-ec2/
-
-
-
-
-
 
 
 You should see this.
@@ -518,8 +564,8 @@ you should see that Jupyter notebook is alive.
 These [instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) 
 explain how to connect to your Linux instance using an SSH client, AWS CLI or SCP client. 
 
-To connect to your instance using SSH, run this command.
-Replace the public IP with your own (mine is `15.223.76.161`).
+Use the following command to SSH into your EC2 instance.
+Replace the public IP address of your EC2 instance (mine is `15.223.76.161`).
 
 ```bash
 ssh -i ~/.ssh/razer.pem ubuntu@15.223.119.162
@@ -662,7 +708,7 @@ You should see something like this.
 
 ### Step 13: Test
 
-```bash 
+```bash
 $ make test
 ```
 
@@ -679,10 +725,9 @@ $ make deploy
 Avoid unnecessary charges in your AWS account by destroying your instance in Terraform.
 
 ```bash
-terraform destroy
+terraform destroy -auto-approve
 ```
 
-Type `yes` when you are prompted in your terminal to delete your infrastructure.
 
 ## References
 
@@ -698,13 +743,9 @@ Type `yes` when you are prompted in your terminal to delete your infrastructure.
 
 I am deeply grateful for the effort this fantastic group of individuals has invested in ensuring our understanding of the different facets of MLOps.
 
-* Alexey Grigorev
+* [Alexey Grigorev](https://github.com/alexeygrigorev)
 * Cristian Martinez (MLflow)
-* Jeff Hale (Prefect)
+* [Jeff Hale](https://github.com/discdiver) (Prefect)
 * Bianca Hoch (Prefect)
-* Emeli Dral (Evidently)
-* Sejal Vaidya (IaC and Terraform)
-
-<!--
-ipconfig getifaddr $(route -n get default|awk '/interface: / {print $2}')
--->
+* [Emeli Dral](https://github.com/emeli-dral) (Evidently)
+* [Sejal Vaidya](https://github.com/sejalv) (IaC and Terraform)

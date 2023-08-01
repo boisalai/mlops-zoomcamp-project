@@ -68,6 +68,9 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Kaggle
+kaggle.json
+
 # Other...
 src
 data

@@ -1,26 +1,26 @@
-# Make sure to create state bucket beforehand
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.16"
+      version = "5.10.0"
     }
   }
 
-  required_version = ">= 1.2.0"
-
+  /*
+  # Make sure to create state bucket before hand.
   backend "s3" {
     bucket  = "tf-state-mlops-zoomcamp"
     key     = "mlops-zoomcamp-stg.tfstate"
     region  = "ca-central-1"
     encrypt = true
   }
+  */
 }
 
 provider "aws" {
-  # access_key = var.access_key"AKIATI4DXUWBLW3F3WHH"
-  # secret_key = var.secret_key"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"
-  region = var.aws_region
+  profile                  = "default"
+  region                   = var.aws_region
+  shared_credentials_files = ["~/.aws/credentials"]
 }
 
 data "aws_caller_identity" "current_identity" {}
@@ -28,6 +28,17 @@ data "aws_caller_identity" "current_identity" {}
 locals {
   account_id = data.aws_caller_identity.current_identity.account_id
 }
+
+module "ec2_module" {
+  source = "./modules/ec2"
+}
+
+
+
+
+
+
+
 
 
 /*
@@ -89,11 +100,7 @@ resource "aws_iam_instance_profile" "zoomcamp_instance_profile" {
 }
 */
 
-# Attach the IAM instance profile to the EC2 instance.
-module "zoomcamp_ec2" {
-  source = "./modules/ec2"
-  # instance_profile_name = var.instance_profile_name
-}
+
 
 /*
 # ride_events
