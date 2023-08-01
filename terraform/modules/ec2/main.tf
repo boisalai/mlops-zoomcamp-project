@@ -31,8 +31,7 @@ resource "aws_security_group" "web_traffic" {
       from_port   = port.value
       to_port     = port.value
       protocol    = "TCP"
-      cidr_blocks = [var.my_public_ip_address] # TODO: Déplacer vers variables.tf
-      # cidr_blocks = ["${var.my_public_ip_address}"]
+      cidr_blocks = var.ingress_cidr_blocks
     }
   }
 

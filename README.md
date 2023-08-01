@@ -1,21 +1,13 @@
 > [!WARNING]  
 > This project is in progress and not yet finished.
 
-<div align="center">
-<h1>Used Car Price Prediction (MLOps Zoomcamp Project)</h1>
+# Used Car Price Prediction (MLOps Zoomcamp Project)
+
+Capstone project carried out as part of the MLOps Zoomcamp 2023.
+
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
 ![](images/banner.png)
-
-<img alt="any text you like" src="https://img.shields.io/badge/python-3.9-blue">
-<img alt="any text you like" src="https://img.shields.io/badge/code%20style-black-black">
-<a href="https://opensource.org/license/mit/">
-<img alt="any text you like" src="https://img.shields.io/badge/License-MIT-yellow">
-</a>
-
-[Problem](#problem-statement) | [Dataset](#dataset) | [Architecture](#architecture) 
-| [Instructions](#instructions) | [Best practices](#best%20practices) 
-| [License](#license) | [Acknowledgments](#acknowledgments)
-</div>
 
 ## Problem Statement
 
@@ -100,7 +92,6 @@ Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, clic
 
 Click on **Add users** button, enter `mlops-zoomcamp` as **User name**, click on **Next** button.
 Click on **Next** button again, then on the **Create user** button.
-Select `mlops-zoomcamp` user.
 
 <table>
     <tr>
@@ -113,16 +104,18 @@ Select `mlops-zoomcamp` user.
     </tr>
 </table>
 
+Select `mlops-zoomcamp` user. You should see something like this.
+
 ![s19](images/s19.png)
 
-Click on **Permissions** tab and on **Add permissions** button.
+Click on the **Permissions tab**. Click on the **Add permissions** button.
 Select **Attach policies directly**.
-Search and select for **AdministrasorAccess** 
-then click on **Next** button, then on **Add permissions** button.
+Search and select for **AdministratorAccess**.
+Then click on the **Next** button, then on the **Add permissions** button.
 
 ### Step 3: Create AWS credentials
 
-Select `mlops-zoomcamp` user.
+In AWS console, select `mlops-zoomcamp` user.
 Click on **Security credentials** tab, and click on **Create access key** button.
 Select **Command Line interface (CLI)**, check confirmation below, click **Next**, then click on **Create access key** button.
 
@@ -137,30 +130,19 @@ Select **Command Line interface (CLI)**, check confirmation below, click **Next*
     </tr>
 </table>
 
+You should see something like this.
+
 ![s22](images/s22.png)
 
 Write down your **Access key** and **Secret access key**.
 Keep them in a safe place.
-If you lost them, you cannot recover (or) download them again. You will need to create a new API key.
-
-<!--
-On your local mahine, set up 
-the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables with 
-the appropriate access keys
-previously obtained.
-
-```bash
-export AWS_ACCESS_KEY_ID="xxxxxxxxxxxxxxxxxxxx"
-export AWS_SECRET_ACCESS_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
--->
+If you lost them, you cannot recover them again. You will need to create a new API key.
 
 ### Step 4: Install and configure AWS CLI
 
 Since we will be working with AWS to provision our infrastructure using Terraform, 
-we also need to install 
-[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). 
-Follow the steps listed here, to install the 
+we also need to install AWS CLI. 
+Follow the steps listed [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) to install the 
 latest version of AWS CLI for your OS.
 
 Check installation.
@@ -172,7 +154,7 @@ $ aws --version
 aws-cli/2.13.0 Python/3.11.4 Darwin/22.5.0 exe/x86_64 prompt/off
 ```
 
-Configure `aws-cli` with your AWS **Access key** and **Secret access key**.
+Configure AWS CLI with your AWS **Access key** and **Secret access key**.
 
 ```bash
 $ aws configure
@@ -193,7 +175,8 @@ $ aws sts get-caller-identity
 }
 ```
 
-Write down your **Arn**, you will need it later to configure your AWS S3 bucket.
+Write down your **Arn** (the Amazon Resource Name associated with the calling identity), 
+you will need it later to configure your AWS S3 bucket.
 
 ### Step 5: Create key pair using Amazon EC2
 
@@ -213,23 +196,9 @@ chmod 400 ~/.ssh/razer.pem
 ```
 
 > [!NOTE]  
-> If you get an error, you can decode the encoded AWS error message with the following commands.
-> `aws sts decode-authorization-message --encoded-message`
+> If you get an error, you can decode the encoded AWS error message with the following commands: <br>
+> `aws sts decode-authorization-message --encoded-message`<br>
 > See [decode-authorization-message](https://docs.aws.amazon.com/cli/latest/reference/sts/decode-authorization-message.html).
-
-
-<!--
-### Step 5: Create a conda environment
-
-Create and activate a new environment on your local machine.
-
-```bash
-conda create -n mlops-zoomcamp python=3.9
-conda activate mlops-zoomcamp
-```
-
-If prompted to proceed with the installation (`Proceed ([y]/n)?`), type `y`.
--->
 
 ### Step 6: Install Terraform CLI
 
@@ -246,21 +215,28 @@ on darwin_arm64
 
 ### Step 7: Clone repository
 
-Clone this [repository](https://github.com/boisalai/mlops-zoomcamp-project.git).
+Clone this [repository](https://github.com/boisalai/mlops-zoomcamp-project.git) on your local machine.
 
 ```bash
 git clone https://github.com/boisalai/mlops-zoomcamp-project.git
+cd mlops-zoomcamp-project
 ```
 
-### Step 8: Modify Terraform setting
+### Step 8: Adjust Terraform settings
 
-Some changes should be made in the Terreform files.
+Some changes should be made in the Terreform setting.
 
-Change the region for a region near you (if possible, choose a region with low in carbon emissions, mine is `ca-central-1` powered by hydroelectricity).
+In the `infrastructure/variables.tf`:
+
+* change the `aws_region` variable for a region near you (ideally, choose a region with low in carbon emissions, mine is `ca-central-1` powered by hydroelectricity).
+
+
+
+
 Make the changes in these files:
 
 * `infrastructure/main.tf`, at line 7.
-* `infrastructure/variables.tf`, at line 3.
+* , at line 3.
 
 An AMI (Amazon Machine Image) is a supported and maintained image provided by AWS that provides the information required to launch an instance.
 Each AMI has its own unique ID. In order to launch an instance on the EC2 cloud, you first need to locate its ID.

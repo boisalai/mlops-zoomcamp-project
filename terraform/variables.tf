@@ -1,26 +1,13 @@
 variable "aws_region" {
+  type    = string
   description = "AWS region to create resources"
   default     = "ca-central-1"
 }
 
 variable "project_id" {
+  type    = string
   description = "project_id"
   default     = "mlops-zoomcamp"
-}
-
-variable "instance_profile_name" {
-  type    = string
-  default = "my-instance-profile"
-}
-
-variable "iam_policy_name" {
-  type    = string
-  default = "my-iam-policy"
-}
-
-variable "role_name" {
-  type    = string
-  default = "my-role"
 }
 
 variable "model_bucket" {

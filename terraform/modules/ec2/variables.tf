@@ -7,7 +7,7 @@ variable "instance_type" {
 }
 
 variable "instance_volume_size" {
-  # Size of the volume in gibibytes (GiB).
+  description = "Size of the volume in gibibytes (GiB)"
   type    = number
   default = 10
 }
@@ -17,7 +17,8 @@ variable "key_name" {
   default = "razer"
 }
 
-variable "my_public_ip_address" {
-  type    = string
-  default = "24.201.179.109/32"
+variable "ingress_cidr_blocks" {
+  description = "List of IPv4 CIDR ranges to use on all ingress rules"
+  type        = list(string)
+  default = ["24.201.179.109/32"]
 }
