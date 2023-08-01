@@ -53,7 +53,7 @@ resource "aws_instance" "instance" {
   }
   user_data = file("${path.module}/setup.sh")
   tags = {
-    Name        = "EC2 Instance for mlops-zoomcamp"
+    Name        = var.instance_name
     Environment = "dev"
   }
 }
@@ -65,7 +65,7 @@ resource "null_resource" "cloud_init_wait" {
   connection {
     host        = aws_instance.instance.public_ip
     user        = "ubuntu"
-    private_key = file("~/.ssh/razer.pem")
+    private_key = file("~/.ssh/${var.key_name}.pem")
     timeout     = "10m"
   }
   provisioner "remote-exec" {

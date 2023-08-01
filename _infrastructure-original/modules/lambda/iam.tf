@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam_lambda" {
-  name = "iam_${var.lambda_function_name}"
+  name               = "iam_${var.lambda_function_name}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -120,10 +120,10 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 # IAM for S3
 
 resource "aws_iam_policy" "lambda_s3_role_policy" {
-  name = "lambda_s3_policy_${var.lambda_function_name}"
+  name        = "lambda_s3_policy_${var.lambda_function_name}"
   description = "IAM Policy for s3"
   # TODO: change policies below to reflect get operation
-policy = <<EOF
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [

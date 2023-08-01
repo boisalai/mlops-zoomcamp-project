@@ -64,4 +64,7 @@ init-ubuntu:
 	sudo groupadd docker
 	sudo usermod -aG docker ${USER}
 
-	
+format:
+	echo "Format Terraform files."
+	# Comment savoir le répertoire où nous sommes?
+	terraform fmt -recursive

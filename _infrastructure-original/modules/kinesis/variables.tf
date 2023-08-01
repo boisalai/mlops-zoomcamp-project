@@ -1,22 +1,22 @@
 variable "stream_name" {
-    type        = string
-    description = "Kinesis stream name"
+  type        = string
+  description = "Kinesis stream name"
 }
 
 variable "shard_count" {
-    type        = number
-    description = "Kinesis stream shard count"
+  type        = number
+  description = "Kinesis stream shard count"
 }
 
 variable "retention_period" {
-    type        = number
-    description = "Kinesis stream retention period"
+  type        = number
+  description = "Kinesis stream retention period"
 }
 
 variable "shard_level_metrics" {
-    type        = list(string)
-    description = "shard_level_metrics"
-    default     = [
+  type        = list(string)
+  description = "shard_level_metrics"
+  default = [
     "IncomingBytes",
     "OutgoingBytes",
     "OutgoingRecords",
@@ -29,5 +29,5 @@ variable "shard_level_metrics" {
 
 variable "tags" {
   description = "Tags for kinesis stream"
-    default = "mlops-zoomcamp"
+  default     = "mlops-zoomcamp"
 }

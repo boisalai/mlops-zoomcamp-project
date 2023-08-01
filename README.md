@@ -55,13 +55,10 @@ The architecture below depicts the system design:
 
 Our repository organization is shown below. 
 
-- The `notebooks` folder contains ...
-- The `infrastructure` folder contains ...
-- The `eval` folder contains all ...
-- The `inference` folder contains ...
-  - <span style="color:hr">[Coming Soon!]</span>  The `train` folder contains all the training code associated with Gorilla finetuning.
-
-
+* The `notebooks` folder contains ...
+* The `infrastructure` folder contains ...
+* The `eval` folder contains all ...
+* The `inference` folder contains ...
 
 ```
 mlops-zoomcamp-project
@@ -70,10 +67,6 @@ mlops-zoomcamp-project
 │   │   ├── ec2
 
 ```
-
-<!--
-See https://raw.githubusercontent.com/ShishirPatil/gorilla/main/README.md
--->
 
 ## Instructions
 
@@ -226,44 +219,17 @@ cd mlops-zoomcamp-project
 
 Some changes should be made in the Terreform setting.
 
-In the `infrastructure/variables.tf`:
+In the `infrastructure/variables.tf` change the `aws_region` variable for a 
+region near you (ideally, choose a region with low in carbon emissions, 
+mine is `ca-central-1` powered by hydroelectricity).
 
-* change the `aws_region` variable for a region near you (ideally, choose a region with low in carbon emissions, mine is `ca-central-1` powered by hydroelectricity).
+In the `infrastructure/modules/ec2/variables.tf` change the `ingress_cidr_blocks` 
+variable for your IP address followed by `/32`.
 
-
-
-
-Make the changes in these files:
-
-* `infrastructure/main.tf`, at line 7.
-* , at line 3.
-
-An AMI (Amazon Machine Image) is a supported and maintained image provided by AWS that provides the information required to launch an instance.
-Each AMI has its own unique ID. In order to launch an instance on the EC2 cloud, you first need to locate its ID.
-
-Locate an AMI ID from this [page](http://cloud-images.ubuntu.com/locator/ec2/). 
-Select the **Zone** corresponding to your region, select `22.04 LTS` as **Version** and `amd64` as **Architecture**. 
-Copy the **AMI-ID** and paste it to the `ami_id` variable in `infrastructure/modules/ec2/variables.tf`, at line 25.
-
-![s28](images/s28.png)
-
-If you don't know your public IP address, open a browser and type into your browser's address space, "what is my IP address" 
-the browser will then show your public IP address. Change the variable setting to "your IP address with a /32" subnet mask 
-(i.e. "1.2.3.4/32").
-
-
-https://josephomara.com/tag/terraform-using-security-group-as-an-ingress-rule/
+If you are unsure of your public IP address, open a web browser and type "what is my IP address" into the browser's address bar. 
+The browser will display your public IP address. Now, modify the variable setting to include a subnet mask of `/32` like this: `1.2.3.4/32`.
 
 ### Step 9: Create AWS resources
-
-Format your Terraform configuration files using the HCL language
-standard, including files in subdirectories.
-
-```bash
-cd mlops-zoomcamp-project
-cd infrastructure
-terraform fmt -recursive
-```
 
 Run the `terraform init` to install the necessary provider modules, in this case, to support AWS provisioning.
 
@@ -288,29 +254,48 @@ Run `terraform plan` to check what change would be made (you should always do it
 terraform plan 
 ```
 
-If you are ok with the plan summary, you can apply the configuration using the following command.
+If you are OK with the plan summary, you can apply the configuration using the following command.
 Terraform will ask you if you want to perform these actions. Answer `yes`.
 
 ```bash
 terraform apply
 ```
 
-### Step 10: Connect to EC2 instance
+This command should take a few minutes since in addition to creating the EC2 instance, 
+it install conda, docker, make, clone the repository, create a conda environment and install the required packages.
+
+Go to [AWS Management Console](https://aws.amazon.com/console/), then go to **EC2** section. 
+Under **Resources**, click on **Instances (running)**.
+Select `mlops-zoomcamp-ec2` and copy the **Public IPv4 address** for the next step.
+
+### Step 10: Connect to EC2 instance and start Jupyter notebook.
+
+Change the public PI address and run the following command to connect to the AWS EC2 instance.
+Answer `yes` to the question.
 
 ```bash
-ssh -i ~/.ssh/razer.pem ubuntu@3.96.63.58
+$ ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@3.98.58.87
+The authenticity of host 'XX.XX.XX.XX (XX.XX.XX.XX)' can't be established.
+ED255XX key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? 
 ```
 
-### Step 11: Start Jupyter
+You should see this.
 
+![MLOps](images/s07.png)
 
-Avais-je vraiment besoin de sudo? et du ssh -i localhost:8888
+We are now connected to the remote service.
 
-En tout cas, je sais que je dois ouvrir l'adresse
-http://127.0.0.1:8888/tree?token=10238b8ad9dfaf1651e9060fbe642d937deceaff32f68b81
+<!-->
+Enter `logout` to close the connection.
 
-Quelqu'un dit...
-Make sure you type https://<jupyter-server-ip> in your browser instead of http://.
+```bash
+$ logout
+```
+-->
+
+On the remote instance, run the following commands:
 
 ```bash
 cd mlops-zoomcamp-project
@@ -320,9 +305,13 @@ sudo chown -R ubuntu ~/.local/share/jupyter/
 jupyter notebook
 ```
 
-ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@3.96.63.58
-ssh -L localhost:8888:localhost:8888 ubuntu@3.96.63.58
+Copy and paste to uour local browsewr the second URL starting with `http://127.0.0.1:8888/tree?token=`.
 
+You should see this.
+
+TODO
+
+<!--
 
 ### Step 9999: Create S3 Bucket
 
@@ -346,9 +335,7 @@ Enter `tf-state-mlops-zoomcamp` as **Bucket name** and click on **Create bucket*
 
 Now, click on the newly created bucket, select the **Permissions** tab, and click on **Edit** under **Bucket policy** section.
 
-<!--
 Ces permissions devraient se retrouver dans Terraform.
--->
 
 Add the following bucket policy:
 
@@ -379,7 +366,7 @@ Add the following bucket policy:
 }
 ```
 
-<!--
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -404,7 +391,7 @@ Add the following bucket policy:
         }
     ]
 }
--->
+```
 
 Replace `<your_user_arn>` and `<your_bucket_arn>` with the appropriate values. 
 You can get your **user arn** from the command line by running `aws sts get-caller-identity`. See above (mine is `AIDATI4DXUWBELI552XQJ`).
@@ -419,29 +406,16 @@ You should have something like this.
 
 Click on **Save changes** button.
 
-<!--
+
 See [Configure S3 bucket as Terraform backend, Step-by-Step](https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/) for more information.
--->
 
 
-<!--
 
 
 Pour faire fonctionner Jupyter...
 https://saturncloud.io/blog/how-to-setup-jupyter-notebook-on-ec2/
 
 
-You should see this.
-
-![MLOps](images/s07.png)
-
-We are now connected to the remote service.
-
-Enter `logout` to close the connection.
-
-```bash
-$ logout
-```
 
 You don't need to run the previous command every time. Just create a config file `~/.ssh/config` like this.
 
@@ -695,21 +669,15 @@ TODO
 ```bash
 $ make deploy 
 ```
+-->
 
-### Step 15: Destroy your image
+### Step 99: Destroy your image
 
 Avoid unnecessary charges in your AWS account by destroying your instance in Terraform.
 
 ```bash
 terraform destroy -auto-approve
 ```
-
-
-## References
-
-* [Deploying a Machine Learning development environment in less than 5 minutes](https://www.manuelpasieka.com/projects/ml_dev_deployment_on_aws/)
-* [](https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86)
-* https://aws.amazon.com/ec2/instance-types/
 
 ## License
 

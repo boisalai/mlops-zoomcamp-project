@@ -1,11 +1,11 @@
 variable "aws_region" {
-  type    = string
+  type        = string
   description = "AWS region to create resources"
   default     = "ca-central-1"
 }
 
 variable "project_id" {
-  type    = string
+  type        = string
   description = "project_id"
   default     = "mlops-zoomcamp"
 }
