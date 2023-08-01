@@ -89,7 +89,7 @@ Here are the instructions for setting up an AWS EC2 instance and executing the c
 
 ### Step 1: Create an AWS Account
 
-Go to [AWS Management Console](https://aws.amazon.com/console/), click on **Create an AWS Account** and follow steps.
+Go to [AWS Management Console](https://aws.amazon.com/console/). Click on **Create an AWS Account** and follow steps.
 Select your **Default Region** (mine is `Canada (Central) ca-central-1`).
 
 ### Step 2: Create a user
