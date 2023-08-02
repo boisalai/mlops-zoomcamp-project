@@ -90,12 +90,11 @@ documentation to find your region name based on your location.
 
 ### Step 2: Create a user
 
-Go to **IAM** section. From the **IAM dashboard**, under **IAM resources**, click on the number under **Users**.
+1. Navigate to the **IAM** section, access the **IAM dashboard**, and click on the number displayed under **Users** in the **IAM resources** section.
 
 ![s16](images/s16.png)
 
-Click on **Add users** button, enter `mlops-zoomcamp` as **User name**, click on **Next** button.
-Click on **Next** button again, then on the **Create user** button.
+2. Click the **Add users** button, input `mlops-zoomcamp` as the **User name**, click **Next**, proceed by clicking **Next** again, and finally, click the **Create user** button.
 
 <table>
     <tr>
