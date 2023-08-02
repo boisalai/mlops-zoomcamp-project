@@ -3,20 +3,12 @@
 # Terminate script on any error and log all output to file.
 set -e
 USER=ubuntu
+cd /home/$USER
 exec > /home/$USER/setup.log
 exec 2>&1
 
-# Change directory.
-cd /home/$USER
 current_date_time=$(date)
 echo "Current date and time: $current_date_time" | sudo tee /home/$USER/setup.log
-
-# Install Miniconda silently.
-# sudo wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh
-# sudo -u $USER bash /tmp/miniconda.sh -b -p /home/$USER/miniconda
-# sudo -u $USER /home/$USER/miniconda/bin/conda init bash
-# . "/home/$USER/miniconda/etc/profile.d/conda.sh"
-# export PATH="/home/$USER/miniconda/bin:$PATH"
 
 echo "Install Mambaforge silently."
 # See https://github.com/fastai/fastsetup/blob/master/setup-conda.sh
@@ -28,11 +20,6 @@ sudo -u $USER /home/$USER/mambaforge/bin/conda init bash
 
 # Useful for debugging any issues with conda.
 sudo -u $USER conda info -a | sudo tee /home/$USER/setup.log
-
-# echo "Install miniconda."
-# Je crois que cette section ne sert à rien.
-# conda install -yq mamba
-# conda install -yq -c conda-forge mamba
 
 echo "Install Docker."
 sudo apt update
@@ -60,4 +47,3 @@ conda activate mlops-zoomcamp
 
 echo "Install required dependencies."
 pip install -r requirements.txt
-# mamba install --file requirements.txt

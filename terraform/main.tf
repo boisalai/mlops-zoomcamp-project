@@ -6,15 +6,13 @@ terraform {
     }
   }
 
-  /*
-  # Make sure to create state bucket before hand.
+  # Make sure to create state bucket before.
   backend "s3" {
     bucket  = "tf-state-mlops-zoomcamp"
     key     = "mlops-zoomcamp-stg.tfstate"
     region  = "ca-central-1"
     encrypt = true
   }
-  */
 }
 
 provider "aws" {
