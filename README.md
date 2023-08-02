@@ -107,14 +107,14 @@ documentation to find your region name based on your location.
     </tr>
 </table>
 
-Select `mlops-zoomcamp` user. You should see something like this.
+3. Choose the `mlops-zoomcamp` user, and you should see something similar to the following.
 
 ![s19](images/s19.png)
 
-Click on the **Permissions tab**. Click on the **Add permissions** button.
-Select **Attach policies directly**.
-Search and select for **AdministratorAccess**.
-Then click on the **Next** button, then on the **Add permissions** button.
+4. Click on the **Permissions** tab, and then click the **Add permissions** button.
+Choose **Attach policies directly**.
+Search for and select **AdministratorAccess**.
+Next, click on the **Next** button, and finally, click the **Add permissions** button.
 
 ### Step 3: Create AWS credentials
 
