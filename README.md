@@ -79,22 +79,25 @@ Here are the instructions for set up an AWS EC2 instance and executing the code 
 
 ### Step 1: Create an AWS Account
 
-1. Go to the [AWS Management Console](https://aws.amazon.com/console/). 
+Go to the [AWS Management Console](https://aws.amazon.com/console/). 
 Click on **Create an AWS Account** and follow the provided steps to create your AWS account.
-2. Once you have created your account, log in to the **AWS Management Console**.
-3. Select your **Default Region** from the available options. For example, if you are in Canada, you can 
+
+Once you have created your account, log in to the **AWS Management Console**.
+
+Select your **Default Region** from the available options. For example, if you are in Canada, you can 
 choose `Canada (Central) ca-central-1` as your default region.
-4. If you are uncertain about the specific region to select, you can refer to 
+
+If you are uncertain about the specific region to select, you can refer to 
 the [AWS Regions and Availability zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) 
 documentation to find your region name based on your location.
 
 ### Step 2: Create a user
 
-1. Navigate to the **IAM** section, access the **IAM dashboard**, and click on the number displayed under **Users** in the **IAM resources** section.
+Navigate to the **IAM** section, access the **IAM dashboard**, and click on the number displayed under **Users** in the **IAM resources** section.
 
 ![s16](images/s16.png)
 
-2. Click the **Add users** button, input `mlops-zoomcamp` as the **User name**, click **Next**, proceed by clicking **Next** again, and finally, click the **Create user** button.
+Click the **Add users** button, input `mlops-zoomcamp` as the **User name**, click **Next**, proceed by clicking **Next** again, and finally, click the **Create user** button.
 
 <table>
     <tr>
@@ -107,20 +110,20 @@ documentation to find your region name based on your location.
     </tr>
 </table>
 
-3. Choose the `mlops-zoomcamp` user, and you should see something similar to the following.
+Choose the `mlops-zoomcamp` user, and you should see something similar to the following.
 
 ![s19](images/s19.png)
 
-4. Click on the **Permissions** tab, and then click the **Add permissions** button.
+Click on the **Permissions** tab, and then click the **Add permissions** button.
 Choose **Attach policies directly**.
 Search for and select **AdministratorAccess**.
 Next, click on the **Next** button, and finally, click the **Add permissions** button.
 
 ### Step 3: Create AWS credentials
 
-In AWS console, select `mlops-zoomcamp` user.
-Click on **Security credentials** tab, and click on **Create access key** button.
-Select **Command Line interface (CLI)**, check confirmation below, click **Next**, then click on **Create access key** button.
+In the AWS console, choose the `mlops-zoomcamp` user.
+Click on the **Security credentials** tab, and then click the **Create access key** button.
+Select **Command Line interface (CLI)**, confirm your selection, click **Next**, and finally, click the **Create access key** button.
 
 <table>
     <tr>
@@ -137,17 +140,16 @@ You should see something like this.
 
 ![s22](images/s22.png)
 
-Write down your **Access key** and **Secret access key**.
-Keep them in a safe place.
-If you lost them, you cannot recover them again. You will need to create a new API key.
+Please make sure to write down your **Access key** and **Secret access key** and store them in a secure location.
+If you happen to lose them, it's important to note that they cannot be recovered. In such a case, you will need to generate a new API key.
 
 ### Step 4: Install and configure AWS CLI
 
-Terraform needs the AWS CLI installed in order to make API calls. 
-Follow [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) to install it as well 
-as configure the CLI with your access key and secret key.
+Terraform requires the AWS CLI to be installed for making API calls. 
+Follow [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) 
+to install the AWS CLI and configure it with your access key and secret key.
 
-Check installation.
+Please verify the installation.
 
 ```bash
 $ which aws
@@ -166,7 +168,7 @@ Default region name [ca-central-1]:
 Default output format [None]:
 ```
 
-Verify aws config.
+Verify the AWS configuration.
 
 ```bash
 $ aws sts get-caller-identity
@@ -177,18 +179,19 @@ $ aws sts get-caller-identity
 }
 ```
 
-Write down your **Arn** (the Amazon Resource Name associated with the calling identity), 
-you will need it later to configure your AWS S3 bucket.
+Make sure to write down your **ARN** (Amazon Resource Name) associated with the 
+calling identity, as you will need it later for configuring your AWS S3 bucket.
 
 ### Step 5: Create S3 Bucket
 
 We need to create an S3 bucket manually because Terraform won't create it automatically for us.
 
-In the [AWS Console](https://aws.amazon.com/console/), go to **S3** section.
-I suppose you don't have any S3 Buckets available. In order to create an S3 bucket, click on **Create bucket**.
+To create an S3 bucket manually, follow these steps:
 
-Enter `tf-state-mlops-zoomcamp` as **Bucket name** and change the **AWS Region** if necessary.
-Then click on **Create bucket**.
+1. Go to the [AWS Console](https://aws.amazon.com/console/) and navigate to the **S3** section.
+2. If you don't have any existing S3 Buckets, click on **Create bucket** to initiate the creation process.
+3. Enter `tf-state-mlops-zoomcamp` as the **Bucket name** and, if needed, select the appropriate **AWS Region**.
+4. Click on **Create bucket** to create the S3 bucket.
 
 <table>
     <tr>
@@ -201,7 +204,8 @@ Then click on **Create bucket**.
     </tr>
 </table>
 
-Now, click on the newly created bucket, select the **Permissions** tab, and click on **Edit** under **Bucket policy** section.
+Click on the newly created bucket in the AWS S3 console. Select the **Permissions** tab.
+Click on **Edit** under the **Bucket policy** section.
 
 Add the following bucket policy:
 
@@ -232,55 +236,30 @@ Add the following bucket policy:
 }
 ```
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "AIDATI4DXUWBELI552XQJ"
-            },
-            "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::tf-state-mlops-zoomcamp"
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "AIDATI4DXUWBELI552XQJ"
-            },
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::tf-state-mlops-zoomcamp/*"
-        }
-    ]
-}
-```
+Ensure to replace `<your_user_arn>` and `<your_bucket_arn>` with the correct values.
 
-Make sure to replace `<your_user_arn>` and `<your_bucket_arn>` with the appropriate values. 
+Replace `<your_user_arn>` with the `UserId` obtained earlier by running `aws sts get-caller-identity`.
 
-Replace `<your_user_arn>` with the `UserId` obtained before 
-by running `aws sts get-caller-identity` (mine is `AIDATI4DXUWBELI552XQJ`).
-
-Replace `<your_bucket_arn>` with the 
-**Bucket ARN** that can be found in the **Properties** tab of the S3 bucket (mine is `arn:aws:s3:::tf-state-mlops-zoomcamp`).
+Replace `<your_bucket_arn>` with the **Bucket ARN** available in the **Properties** tab of the S3 bucket (e.g., `arn:aws:s3:::tf-state-mlops-zoomcamp`).
 
 ![s25](images/s25.png)
 
-You should have something like this.
+You should see something like this.
 
 ![s26](images/s26.png)
 
-Click on **Save changes** button.
+Click on the **Save changes** button after making the necessary modifications to the Bucket policy in the AWS S3 console.
 
 ### Step 6: Create key pair using Amazon EC2
 
-Create a key pair using Amazon EC2. Run this command
-to generate the key pair and to save the private key to a `.pem` file.
-Then change the permissions to protect the file against the accidental 
-overwriting, removing, renaming or moving files.
+To create a key pair using Amazon EC2, execute the following command to generate 
+the key pair and save the private key to a `.pem` file. Afterwards, adjust 
+the file permissions to safeguard it against accidental overwriting.
+
+To create a key pair using Amazon EC2, execute the following command to generate 
+the key pair and save the private key to a `.pem` file. Afterward, modify the 
+file permissions to grant read-only access to the file owner while denying 
+any access to the group and others.
 
 ```bash
 aws ec2 create-key-pair \
@@ -293,7 +272,7 @@ chmod 400 ~/.ssh/razer.pem
 ```
 
 > [!NOTE]  
-> If you get an error, you can decode the encoded AWS error message with the following commands: <br>
+> If you get an error, you can decode the encoded AWS error message with the following command: <br>
 > `aws sts decode-authorization-message --encoded-message`<br>
 > See [decode-authorization-message](https://docs.aws.amazon.com/cli/latest/reference/sts/decode-authorization-message.html).
 
@@ -321,23 +300,20 @@ cd mlops-zoomcamp-project
 
 ### Step 9: Adjust Terraform settings
 
-Some changes should be made in the Terreform setting.
+Adjust Terraform settings as follows:
 
-In the `infrastructure/variables.tf`, change the `aws_region` variable for a 
-region near you (ideally, choose a region with low in carbon emissions, 
-mine is `ca-central-1` powered by hydroelectricity).
+1. In the `infrastructure/variables.tf`, update the `aws_region` variable with your default region.
+2. In the `infrastructure/main.tf`, modify the region setting for the S3 bucket.
+3. In the `infrastructure/modules/ec2/variables.tf`, update the `ingress_cidr_blocks` variable with your public IP address followed by `/32`.
 
-In the `infrastructure/main.tf`, change the region of the S3 bucket.
-
-In the `infrastructure/modules/ec2/variables.tf`, change the `ingress_cidr_blocks` 
-variable for your IP address followed by `/32`.
-
-If you are unsure of your public IP address, open a web browser and type "what is my IP address" into the browser's address bar. 
-The browser will display your public IP address. Now, modify the variable setting to include a subnet mask of `/32` like this: `1.2.3.4/32`.
+If you are uncertain about your public IP address, open a web browser and type "what is my IP address" 
+into the browser's address bar. The browser will display your public IP address. 
+Now, adjust the variable setting to include a subnet mask of `/32` like this: `1.2.3.4/32`.
 
 ### Step 10: Create AWS resources
 
-Run the `terraform init` to install the necessary provider modules, in this case, to support AWS provisioning.
+Run the `terraform init` command to initialize the Terraform configuration and 
+download any required plugins or modules specified in the configuration files. 
 
 ```bash
 cd infrastructure
@@ -354,42 +330,42 @@ Run `terraform validate` to validate the AWS provisioning code.
 terraform validate
 ```
 
-Run `terraform plan` to check what change would be made (you should always do it).
+Run `terraform plan` to check the current state of your infrastructure and review the changes that Terraform will apply. 
 
 ```bash
 terraform plan 
 ```
 
-If you are OK with the plan summary, you can apply the configuration using the following command.
-Terraform will ask you if you want to perform these actions. Answer `yes`.
+If you are satisfied with the plan summary, you can proceed to apply the configuration 
+using the `terraform apply` command. Terraform will prompt you to confirm if you want to execute the planned actions. 
+Respond with a `yes` to allow Terraform to carry out the changes.
 
 ```bash
 terraform apply
 ```
 
-This command should take a few minutes since in addition to creating the EC2 instance, 
-it install conda, docker, make, clone the repository, create a conda environment and install the required packages.
+This command may take a few minutes to complete as it not only creates the EC2 instance 
+but also installs conda, docker, make, clones the repository, creates a conda environment, 
+and installs the necessary packages.
 
-Go to [AWS Management Console](https://aws.amazon.com/console/), then go to **EC2** section. 
-Under **Resources**, click on **Instances (running)**.
-Select `mlops-zoomcamp-ec2` and copy the **Public IPv4 address** for the next step.
+Next, go to the [AWS Management Console](https://aws.amazon.com/console/) and navigate to the **EC2** section. 
+Under **Resources**, click on **Instances (running)**. Select the `mlops-zoomcamp-ec2` instance, and 
+then copy the **Public IPv4 address**. You will need it to connect to the instance.
 
-### Step 11: Connect to EC2 instance 
+### Step 11: Connect to EC2 instance
 
-These [instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) 
-explain how to connect to your Linux instance using an SSH client, AWS CLI or SCP client. 
+To connect to your EC2 instance, follow these 
+[instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html) 
+to use an SSH client, AWS CLI, or SCP client.
 
-Use the following command to SSH into your EC2 instance.
-Replace the public IP address of your EC2 instance (mine is `15.223.76.161`).
-Answer `yes` to the question.
+Use the following command to SSH into your EC2 instance:
 
 ```bash
-$ ssh -i ~/.ssh/razer.pem ubuntu@3.98.58.87
-The authenticity of host 'XX.XX.XX.XX (XX.XX.XX.XX)' can't be established.
-ED255XX key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+ssh -i ~/.ssh/razer.pem ubuntu@your-ec2-public-ip
 ```
+
+Replace `your-ec2-public-ip` with the public IP address of your EC2 instance.
+When prompted, answer `yes` to continue connecting.
 
 We are now connected to the remote service.
 You should see this.
@@ -402,34 +378,36 @@ Enter `logout` to close the connection.
 logout
 ```
 
-You don't need to run the previous command every time. Just create a config file `~/.ssh/config` like this.
+You don't need to run the previous command every time. Simply create a configuration file `~/.ssh/config` with the following content.
+Replace `your-ec2-public-ip` with the public IP address of your EC2 instance.
 
 ```bash
 Host mlops-zoomcamp
-    HostName 3.99.132.220
+    HostName your-ec2-public-ip
     User ubuntu
     IdentityFile ~/.ssh/razer.pem
     StrictHostKeyChecking no
 ```
 
-Now, we can connect to our instance with this command.
+Now, you can connect to your instance using this command.
 
 ```bash
 ssh mlops-zoomcamp
 ```
 
-Note that every time we stop and restart the instance, we will have to change the public IP address.
+Please note that every time you stop and restart the instance, the public IP address may change. 
+Therefore, you should ensure that you use the updated public IP address when connecting to the instance after each restart.
 
 ### Step 12: Connect VS Code to your instance (optional)
 
-Now, we want access to this remote computer from our Visual Studio Code (VS Code).
+To connect Visual Studio Code (VS Code) to your instance:
 
-Open VS Code from your local machine. 
-In VS Code, find and install the **Remote - SSH** extension. 
-Then go to the **Command Palette** (`Shift+Cmd+P`), 
-select **Remote-SSH: Connect to Host**​, 
-select the configured SSH host `mlops-zoomcamp`,
-open `mlops-zoomcamp-project` folder and click on **OK**.
+1. Open VS Code on your local machine.
+2. Find and install the **Remote - SSH** extension in VS Code.
+3. Open the **Command Palette** using `Shift+Cmd+P` (on macOS) or `Shift+Ctrl+P` (on Windows/Linux).
+4. Select **Remote-SSH: Connect to Host**​ from the options.
+5. Choose the configured SSH host named `mlops-zoomcamp`.
+6. Open the `mlops-zoomcamp-project` folder in VS Code and click on **OK** to establish the connection.
 
 We should see this.
 
@@ -437,15 +415,15 @@ We should see this.
 
 ### Step 13: Start Jupyter notebook (optional)
 
-Use the following command to SSH into your EC2 instance.
-Replace the public IP address of your EC2 instance (mine is `15.223.76.161`).
+Use the following command to SSH into your EC2 instance. 
+Replace `your-ec2-public-ip` with the public IP address of your EC2 instance. 
 Answer `yes` to the question.
 
 ```bash
-ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@3.98.58.87
+ssh -i ~/.ssh/razer.pem -L localhost:8888:localhost:8888 ubuntu@your-ec2-public-ip
 ```
 
-On the remote instance, run the following commands:
+On the remote instance, execute the following commands:
 
 ```bash
 cd mlops-zoomcamp-project
@@ -455,38 +433,43 @@ sudo chown -R ubuntu ~/.local/share/jupyter/
 jupyter notebook
 ```
 
-Copy and paste to uour local browsewr the second URL starting with `http://127.0.0.1:8888/tree?token=`.
+Copy and paste the second URL, starting with `http://127.0.0.1:8888/tree?token=`, 
+to your local browser to access Jupyter notebook on your EC2 instance.
 
 You should see this.
 
-TODO
+:x: Section to complete. Insert an image.
 
-In VS Code connected to your instance, open a terminal.
-From the menu, use the **Terminal > New Terminal** or **View > Terminal** menu commands.
-Select **PORTS**, click on **Forward a Port** and open the port `8888`.
+You could have opened port 8888 using VS Code.
+
+To do this:
+
+1. In VS Code connected to your instance, open a terminal by using either **Terminal > New Terminal** or **View > Terminal** from the menu.
+2. Select **PORTS**, click on **Forward a Port**, and open port `8888`.
 
 ![s09](images/s09.png)
 
-Copy and paste one of the URLs (I have http://localhost:8888/?token=c8de56fa...) to the web browser, 
-you should see that Jupyter notebook is alive.
+Now, copy and paste one of the URLs (for example, `http://localhost:8888/?token=c8de56fa...`) 
+into your web browser. You should see that Jupyter notebook is up and running.
 
 ![s10](images/s10.png)
 
 ### Step 14: Authentication to use the Kaggle's public API
 
-The `kaggle.json` file is typically used to authenticate API requests to the Kaggle service. 
-It contains the necessary credentials for the Kaggle API, allowing you to interact with Kaggle datasets, competitions, and other 
-resources programmatically.
+The `kaggle.json` file serves as authentication for API requests to the Kaggle service, containing the necessary credentials for interacting with Kaggle datasets, competitions, and other resources programmatically.
 
-Navigate to https://www.kaggle.com. Go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select Create API Token. 
-This will trigger the download of `kaggle.json`, a file containing your API credentials.
+To obtain the `kaggle.json` file, follow these steps:
 
-Load the `kaggle.json` file to the instance with the 
-following command after changing the **Public IPv4 DNS** (mine is `ec2-3-99-132-220.ca-central-1.compute.amazonaws.com`).
+1. Navigate to https://www.kaggle.com and log in.
+2. Go to the [Account tab of your user profile](https://www.kaggle.com/me/account) and select "Create API Token." This action will trigger the download of the `kaggle.json` file, which contains your API credentials.
+
+Once you have the `kaggle.json` file downloaded, load it to your instance using the following command, after modifying the **Public IPv4 DNS** with your instance's value.
 
 ```bash
 scp -i ~/.ssh/razer.pem ~/downloads/kaggle.json ubuntu@ec2-3-99-132-220.ca-central-1.compute.amazonaws.com:~/mlops-zoomcamp
 ```
+
+This command will copy the `kaggle.json` file from your local machine to the `mlops-zoomcamp` directory on your instance.
 
 ### Step 15: Start Prefect
 
